@@ -19,7 +19,7 @@
 \renewcommand{\arraystretch}{1.1}
 \begin{document}
 \section{Dirac--Frenkel variational principal (DFVP)}
-Time dependant Shroedinger equation:
+Time dependant Shr\"{o}dinger equation:
 \begin{equation}
 i\hbar\frac{\partial |\Phi_{ex}\rangle}{\partial t} = \hat{H}|\Phi_{ex}\rangle
 \label{eq:1}
@@ -41,16 +41,16 @@ $$\langle\omega\rangle-\langle\omega\rangle^* = \frac{i\hbar( \langle\Phi|\frac{
 $$\frac{i}{\hbar}\left(\langle\omega\rangle^*-\langle\omega\rangle\right) = \frac{\partial}{\partial t}\ln\langle\Phi|\Phi\rangle$$
 Now we will solve this equation to obtain time dependance of norm:
 $$N(t) = N(0)e^P,\text{ where } P = \frac{i}{\hbar}\int_0^t\left(\langle\omega\rangle^*-\langle\omega\rangle\right)\,dt'$$
-We see, that if function has a conserved norm, then $P=0,\ \langle\omega\rangle\in\mathbb{R}$ and hence $W\in\mathbb{R}$
+We see, that if function has a conserved norm, then $P=0,\ \langle\omega\rangle\in\mathbbm{R}$ and hence $W\in\mathbbm{R}$
 But if it is an approximate solution we can not guarantee conservation of norm!
 
 But let us assume, that we can construct function $|\Phi'\rangle$, that differes from $|\Phi\rangle$ by angular multiplier:
-$$|\Phi'\rangle = |\Phi\rangle\cdot e^Q,\text{ where } Q = \frac{i}{\hbar}\int_0^t\alpha(t')\,dt',\ \alpha(t')\in\mathbb{C}$$
+$$|\Phi'\rangle = |\Phi\rangle\cdot e^Q,\text{ where } Q = \frac{i}{\hbar}\int_0^t\alpha(t')\,dt',\ \alpha(t')\in\mathbbm{C}$$
 We need to find parameter $\alpha(t)$, so that norm $\langle\Phi'|\Phi'\rangle$ is conserved. Once again, we will consider a mean value:
 $$\langle\omega'\rangle = \frac{\langle\Phi'|i\hbar\frac{\partial}{\partial t}|\Phi'\rangle}{\langle\Phi'|\Phi'\rangle} = %
 			  \frac{\langle\Phi|e^{-Q} i\hbar \cdot \frac{i}{\hbar} \alpha(t) e^Q + %
 			   i\hbar\frac{\partial}{\partial t}|\Phi\rangle}{\langle\Phi|\Phi\rangle}=\langle\omega\rangle - \alpha$$
-If $\langle\omega'\rangle\in\mathbb{R}$, then:
+If $\langle\omega'\rangle\in\mathbbm{R}$, then:
 $$0 = \langle\omega'\rangle-\langle\omega'\rangle^* = \langle\omega\rangle - \langle\omega\rangle^* - 2i\mathit{Im}( \alpha )$$
 $$i\mathit{Im}( \alpha ) = \frac{1}{2}\left( \langle\omega\rangle - \langle\omega\rangle^*\right)$$
 $$\alpha = \mathit{Re}( \alpha ) + i\mathit{Im}( \alpha ) = %
@@ -140,4 +140,46 @@ $$|\delta\Psi\rangle = \sum_{k=1}^N \left( \delta C_k|\phi_k(\vec{\lambda})\rang
 Thus, using Dirac--Frenkel variational principle, we will obtain:
 $$\delta C_m^*\sum_{k=1}^N\langle\phi_m|\hat{H}-i\hbar\frac{\partial}{\partial t}|C_k\phi_k\rangle=0$$
 $$\delta\lambda_{mj}^*\sum_{k=0}^NC_m^*\langle\frac{\partial\phi_m}{\partial\lambda_{mj}}|\hat{H}-i\hbar\frac{\partial}{\partial t}|C_k\phi_k\rangle = 0$$
+As variations are independant and arbitrary, we will get two sets of equations:
+$$\sum_{k=1}^N\langle\phi_m|\hat{H}-i\hbar\frac{\partial}{\partial t}|C_k\phi_k\rangle=0$$
+$$\sum_{k=0}^NC_m^*\langle\frac{\partial\phi_m}{\partial\lambda_{mj}}|\hat{H}-i\hbar\frac{\partial}{\partial t}|C_k\phi_k\rangle = 0$$
+
+Let us consider the first equation:
+$$\sum_{k=1}^N C_k\langle\phi_m|\hat{H}|\phi_k\rangle - %
+	       i\hbar\langle\phi_m|\phi_k\rangle \dot{C}_k - %
+	       i\hbar\sum_{l=1}^M\langle\phi_m|\frac{\partial\phi_k}{\partial\lambda_{kl}}\rangle\dot{\lambda}_{kl}=0$$
+$$i\hbar\sum_{k=1}^N\mathbbm{S}_{mk}\dot{C}_k=\sum_{k=1}^N\left(\mathbbm{H}_{mk}-%
+							  i\hbar\sum_{l=1}^M\langle\phi_m|\frac{\partial\phi_k}{\partial\lambda_{kl}}\rangle\dot{\lambda}_{kl}\right)C_k$$
+$$i\hbar\mathbbm{S}\dot{\vec{C}}=(\mathbbm{H}-i\hbar\tau)\vec{C}$$
+$$\dot{\vec{C}} = -\frac{i}{\hbar}\mathbbm{S}^{-1}(\mathbbm{H}-i\hbar\tau)\vec{C}$$
+$$\dot{C}_k = -\frac{i}{\hbar}\sum_{n,r=1}^N \mathbbm{S}^{-1}_{kn}(\mathbbm{H}_{nr}-i\hbar\tau_{nr})C_r$$
+And the second one:
+$$\sum_{k=1}^N\left(C_m^*C_k\langle\frac{\partial\phi_m}{\partial\lambda_{mj}}|\hat{H}|\phi_k\rangle-%
+	     i\hbar\langle\frac{\partial\phi_m}{\partial\lambda_{mj}}|\phi_k\rangle C_m^*\dot{C}_k-%
+	     i\hbar\sum_{l=1}^MC_m^*C_k\langle\frac{\partial\phi_m}{\partial\lambda_{mj}}|\frac{\partial\phi_k}{\partial\lambda_{kl}}\rangle\dot{\lambda}_{kl}\right)=0$$
+$$\sum_{k=1}^N\left(C_m^*C_k\langle\frac{\partial\phi_m}{\partial\lambda_{mj}}|\hat{H}|\phi_k\rangle-%
+		    \langle\frac{\partial\phi_m}{\partial\lambda_{mj}}|\phi_k\rangle\sum_{n,r=1}^N\mathbbm{S}^{-1}_{kn}\mathbbm{H}_{nr}C_m^*C_r\right)=$$
+$$= \sum_{k=1}^N\left(-i\hbar\sum_{n,r=1}^N\langle\frac{\partial\phi_m}{\partial\lambda_{mj}}|\phi_k\rangle\mathbbm{S}_{kn}^{-1}%
+		             \sum_{l=1}^M\langle\phi_n|\frac{\partial\phi_r}{\partial\lambda_{rl}}\rangle\dot{\lambda}_{rl}C_m^*C_r+%
+     		       i\hbar\sum_{l=1}^MC_m^*C_k\langle\frac{\partial\phi_m}{\partial\lambda_{mj}}|\frac{\partial\phi_k}{\partial\lambda_{kl}}\rangle\dot{\lambda}_{kl}\right)$$
+
+$$\rho_{mk} = C_m^*C_k$$
+$$\mathbbm{H}_{ml}^{(j0)}=\langle\frac{\partial\phi_m}{\partial\lambda_{mj}}|\hat{H}|\phi_k\rangle$$
+$$\mathbbm{S}_{mk}^{(j0)}=\langle\frac{\partial\phi_m}{\partial\lambda_{mj}}|\phi_k\rangle$$
+$$\mathbbm{S}_{nr}^{(0l)}=\langle\phi_n|\frac{\partial\phi_r}{\partial\lambda_{rl}}\rangle$$
+$$\mathbbm{S}_{mk}^{(jl)}=\langle\frac{\partial\phi_m}{\partial\lambda_{mj}}|%
+				 \frac{\partial\phi_k}{\partial\lambda_{kl}}\rangle$$
+$$\sum_{k=1}^N\rho_{mk}\mathbbm{H}_{mk}^{(j0)}-%
+  \sum_{r=1}^N\rho_{mr}\left(\sum_{k,n=1}^N\mathbbm{S}_{mk}^{(j0)}\mathbbm{S}_{kn}^{-1}\mathbbm{H}_{nr}\right)=$$
+$$=i\hbar\sum_{l=1}^M\left(\sum_{k=1}^N\rho_{mk}\mathbbm{S}_{mk}^{(jl)}\dot{\lambda}_{kl}-%
+\sum_{r=1}^N\rho_{mr}\left(\sum_{k,n=1}^{N}\mathbbm{S}_{mk}^{(j0)}\mathbbm{S}_{kn}^{-1}\mathbbm{S}_{nr}^{(0l)}\right)\dot{\lambda}_{rl}\right)$$
+$$\sum_{k=1}^N\rho_{mk}\left(\mathbbm{H}_{mk}^{(j0)}-%
+	                     (\mathbbm{S}^{(j0)}\mathbbm{S}^{-1}\mathbbm{H})_{mk} \right)=%
+i\hbar\sum_{l=1}^M\sum_{k=1}^N\rho_{mk}\left(\mathbbm{S}_{mk}^{(jl)}-%
+					     (\mathbbm{S}^{(j0)}\mathbbm{S}^{-1}\mathbbm{S}^{(0l)})_{mk}\right)\dot{\lambda}_{kl}$$
+$$Y_{m}^j=\sum_{k=1}^N\rho_{mk}\left(\mathbbm{H}_{mk}^{(j0)}-%
+	                     (\mathbbm{S}^{(j0)}\mathbbm{S}^{-1}\mathbbm{H})_{mk} \right)$$
+$$X_{mk}^{jl}=\rho_{mk}\left(\mathbbm{S}_{mk}^{(jl)}-%
+					     (\mathbbm{S}^{(j0)}\mathbbm{S}^{-1}\mathbbm{S}^{(0l)})_{mk}\right)$$
+$$i\hbar\dot{\Lambda} = \mathbbm{X}^{-1}\mathbbm{Y}$$
 \end{document}
