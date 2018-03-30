@@ -114,8 +114,30 @@ $$=\langle\delta\Psi|\hat{H}-i\hbar\frac{\partial}{\partial t}|\Psi\rangle^* -%
    i\hbar\frac{\partial}{\partial t}\langle\Psi|\delta\Psi\rangle = 0$$
 Thus, the second equation is a mere consiquence of Dirac--Frenkel variational principal (\ref{eq:3}) and condition (\ref{eq:2}).
 
-As for variations $|\delta\Psi\rangle$, that are parallel to $|\Psi\rangle$, we see
+For now we have discussed the case of orthogonal variation $|\delta\Psi\rangle$. 
+Arbitraty variations $|\delta\Psi\rangle$ can be rewritten as sum of $|\Psi\rangle$ and $|\delta_{\perp}\Psi\rangle$:
+$$|\delta\Psi\rangle = c_{||}|\Psi\rangle + c_{\perp}|\delta_{\perp}\Psi\rangle$$
+Variation of $W$ will have the following look:
+$$\delta W = \langle\delta\Psi|\hat{H}-i\hbar\frac{\partial}{\partial t}|\Psi\rangle + %
+	     \langle\Psi|\hat{H}-i\hbar\frac{\partial}{\partial t}|\delta\Psi\rangle - 
+	     W\langle\delta\Psi|\Psi\rangle - W\langle\Psi|\delta\Psi\rangle = $$
+$$ = \langle\delta\Psi|\hat{H}-i\hbar\frac{\partial}{\partial t}-W|\Psi\rangle + %
+     \langle\Psi|\hat{H}-i\hbar\frac{\partial}{\partial t}-W|\delta\Psi\rangle = $$
+$$ = 2\mathit{Re}(c_{||})\langle\Psi|\hat{H}-i\hbar\frac{\partial}{\partial t}-W|\Psi\rangle - %
+     c_{\perp}^*\langle\delta_{\perp}\Psi|\hat{H}-i\hbar\frac{\partial}{\partial t}-W|\Psi\rangle - %
+     c_{\perp}\langle\Psi|\hat{H}-i\hbar\frac{\partial}{\partial t}-W|\delta_{\perp}\Psi\rangle $$
+The first term equals zero, because:
+$$W = \frac{\langle\Psi|\hat{H}-i\hbar\frac{\partial}{\partial t}|\Psi\rangle}{\langle\Psi|\Psi\rangle},\ %
+      \langle\Psi|\hat{H}-i\hbar\frac{\partial}{\partial t}-W|\Psi\rangle = 0$$
+The last two terms are equal to zero due to Dirac--Frenkel variational principle.
 
 \section{Equations of motions in DFVP formalism}
-Let us assume, that function
+Let us assume, that function $|\Psi\rangle$ can be spanned over linear combination of basis functions $\{|\phi_k(\vec{\lambda})\rangle\}_{k=1}^N$:
+$$|\Psi\rangle = \sum_{k=1}^NC_k|\phi_k(\vec{\lambda})\rangle, \dim\{\vec{\lambda}\} = M$$
+Then we can consider a variation of $|\Psi\rangle$:
+$$|\delta\Psi\rangle = \sum_{k=1}^N \left( \delta C_k|\phi_k(\vec{\lambda})\rangle + %
+					   C_k\sum_{j=1}^M|\frac{\partial\phi_k(\vec{\lambda})}{\partial\lambda_{kj}}\rangle\delta\lambda_{kj} \right)$$
+Thus, using Dirac--Frenkel variational principle, we will obtain:
+$$\delta C_m^*\sum_{k=1}^N\langle\phi_m|\hat{H}-i\hbar\frac{\partial}{\partial t}|C_k\phi_k\rangle=0$$
+$$\delta\lambda_{mj}^*\sum_{k=0}^NC_m^*\langle\frac{\partial\phi_m}{\partial\lambda_{mj}}|\hat{H}-i\hbar\frac{\partial}{\partial t}|C_k\phi_k\rangle = 0$$
 \end{document}
