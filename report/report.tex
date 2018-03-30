@@ -82,14 +82,12 @@ So we have built functions $|\Phi'\rangle$, that have conserved norm and lead to
 Let us consider for simplicity function $|\Psi\rangle$ to be from the family of functions $|\Phi'\rangle$. 
 This function has conserved norm, and mean value $W$, calculated on this function, is real.
 As the norm of $|\Psi\rangle$ doesn't change with time, we can write the following equation:
+$$\delta\langle\Psi|\Psi\rangle = \langle\delta\Psi|\Psi\rangle+\langle\Psi|\delta\Psi\rangle=0$$
+We will consider only variations $|\delta\Psi\rangle$, that are orthogonal to $|\Psi\rangle$. Then:
 \begin{equation}
-\delta\langle\Psi|\Psi\rangle = \langle\delta\Psi|\Psi\rangle+\langle\Psi|\delta\Psi\rangle=0
+\langle\delta\Psi|\Psi\rangle=0,\ \langle\Psi|\delta\Psi\rangle=0
 \label{eq:2}
 \end{equation}
-If our variation is arbitrary, then we will obtain two equations:
-$$\langle\delta\Psi|\Psi\rangle=0,\ \langle\Psi|\delta\Psi\rangle=0$$
-Fistrly we will consider only those variations $|\delta\Psi\rangle$, that are orthogonal to $|\Psi\rangle$.
-
 Now we can write down variation $\delta W$. 
 For simplicity, we shall denote $\langle\Psi|\hat{H}-i\hbar\frac{\partial}{\partial t}|\Psi\rangle$ as $A$ 
 and $\langle\Psi|\Psi\rangle$ as $B$:
@@ -114,7 +112,7 @@ $$=\langle\delta\Psi|\hat{H}-i\hbar\frac{\partial}{\partial t}|\Psi\rangle^* -%
    i\hbar\frac{\partial}{\partial t}\langle\Psi|\delta\Psi\rangle = 0$$
 Thus, the second equation is a mere consiquence of Dirac--Frenkel variational principal (\ref{eq:3}) and condition (\ref{eq:2}).
 
-For now we have discussed the case of orthogonal variation $|\delta\Psi\rangle$. 
+Previously we have discussed the case of orthogonal variation $|\delta\Psi\rangle$. 
 Arbitraty variations $|\delta\Psi\rangle$ can be rewritten as sum of $|\Psi\rangle$ and $|\delta_{\perp}\Psi\rangle$:
 $$|\delta\Psi\rangle = c_{||}|\Psi\rangle + c_{\perp}|\delta_{\perp}\Psi\rangle$$
 Variation of $W$ will have the following look:
@@ -181,5 +179,8 @@ $$Y_{m}^j=\sum_{k=1}^N\rho_{mk}\left(\mathbbm{H}_{mk}^{(j0)}-%
 	                     (\mathbbm{S}^{(j0)}\mathbbm{S}^{-1}\mathbbm{H})_{mk} \right)$$
 $$X_{mk}^{jl}=\rho_{mk}\left(\mathbbm{S}_{mk}^{(jl)}-%
 					     (\mathbbm{S}^{(j0)}\mathbbm{S}^{-1}\mathbbm{S}^{(0l)})_{mk}\right)$$
-$$i\hbar\dot{\Lambda} = \mathbbm{X}^{-1}\mathbbm{Y}$$
+$$i\hbar\dot{\Lambda} = \mathbbm{X}^{-1}\mathbbm{Y},\text{ where }\Lambda\text{ is matrix}$$
+Thus, we have two sets of equations:
+$$\dot{\vec{C}} = -\frac{i}{\hbar}\mathbbm{S}^{-1}(\mathbbm{H}-i\hbar\tau)\vec{C}$$
+$$\dot{\Lambda} = -\frac{i}{\hbar}\mathbbm{X}^{-1}\mathbbm{Y}$$
 \end{document}
