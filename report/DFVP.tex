@@ -13,19 +13,20 @@ $$\frac{\partial \langle\Phi_{ex}|\Phi_{ex}\rangle }{\partial t} = 0$$
 But we do not know beforehand about norm of arbitrary function $|\Phi\rangle$.
 We can consider mean value of $i\hbar\frac{\partial}{\partial t}$:
 $$\langle\omega\rangle = \frac{ \langle \Phi | i\hbar\frac{\partial}{\partial t} | \Phi \rangle }{\langle\Phi|\Phi\rangle}$$
-Let us will calculate difference between $\langle\omega\rangle$ and its complex conjugate:
+Let us calculate difference between $\langle\omega\rangle$ and its complex conjugate:
 $$\langle\omega\rangle-\langle\omega\rangle^* = \frac{i\hbar( \langle\Phi|\frac{\partial \Phi}{\partial t}\rangle + %
 							      \langle\frac{\partial \Phi}{\partial t}|\Phi\rangle )}%
 						     {\langle\Phi|\Phi\rangle}$$
 $$\frac{i}{\hbar}\left(\langle\omega\rangle^*-\langle\omega\rangle\right) = \frac{\partial}{\partial t}\ln\langle\Phi|\Phi\rangle$$
 Now we will solve this equation to obtain time dependance of norm:
 $$N(t) = N(0)e^P,\text{ where } P = \frac{i}{\hbar}\int_0^t\left(\langle\omega\rangle^*-\langle\omega\rangle\right)\,dt'$$
-We see, that if function has a conserved norm, then $P=0,\ \langle\omega\rangle\in\mathbbm{R}$ and hence $W\in\mathbbm{R}$
+We can see, that norm conservation condition is satisfied, when $P=0,\ \langle\omega\rangle\in\mathbbm{R}$ and hence $W\in\mathbbm{R}$
 But if it is an approximate solution we can not guarantee conservation of norm!
 
 But let us assume, that we can construct function $|\Phi'\rangle$, that differes from $|\Phi\rangle$ by angular multiplier:
 $$|\Phi'\rangle = |\Phi\rangle\cdot e^Q,\text{ where } Q = \frac{i}{\hbar}\int_0^t\alpha(t')\,dt',\ \alpha(t')\in\mathbbm{C}$$
-We need to find parameter $\alpha(t)$, so that norm $\langle\Phi'|\Phi'\rangle$ is conserved. Once again, we will consider a mean value:
+We need to find parameter $\alpha(t)$, so that norm $\langle\Phi'|\Phi'\rangle$ is conserved. 
+We will consider a mean value once again:
 $$\langle\omega'\rangle = \frac{\langle\Phi'|i\hbar\frac{\partial}{\partial t}|\Phi'\rangle}{\langle\Phi'|\Phi'\rangle} = %
 			  \frac{\langle\Phi|e^{-Q} i\hbar \cdot \frac{i}{\hbar} \alpha(t) e^Q + %
 			   i\hbar\frac{\partial}{\partial t}|\Phi\rangle}{\langle\Phi|\Phi\rangle}=\langle\omega\rangle - \alpha$$
@@ -43,7 +44,7 @@ $$|\Phi'\rangle = |\Phi\rangle\cdot e^Q = |\Phi\rangle\cdot e^R\cdot e^{-0.5P},%
 As $N(t) = N(0)\cdot e^P $, we have:
 $$|\Phi'\rangle = |\Phi\rangle\cdot e^R\cdot\left(\frac{N(0)}{N(t)}\right)^{1/2}$$
 
-As we've discussed previously, for exact solution of (\ref{eq:1}) $|\Phi_{ex}\rangle$ mean value $W$ equals to zero.
+As we've discussed previously, for an exact solution of (\ref{eq:1}) $|\Phi_{ex}\rangle$ mean value $W$ equals to zero.
  Let us consider mean values $W'$, calculated on function $|\Phi'\rangle$:
 $$W' = \langle H\rangle - \langle\omega'\rangle = %
 		      \langle H\rangle - \frac{1}{2}\left(\langle\omega\rangle+\langle\omega\rangle^*\right)+\mathit{Re}(\alpha)$$
@@ -103,7 +104,7 @@ $$ = \langle\delta\Psi|\hat{H}-i\hbar\frac{\partial}{\partial t}-W|\Psi\rangle +
 $$ = 2\mathit{Re}(c_{||})\langle\Psi|\hat{H}-i\hbar\frac{\partial}{\partial t}-W|\Psi\rangle - %
      c_{\perp}^*\langle\delta_{\perp}\Psi|\hat{H}-i\hbar\frac{\partial}{\partial t}-W|\Psi\rangle - %
      c_{\perp}\langle\Psi|\hat{H}-i\hbar\frac{\partial}{\partial t}-W|\delta_{\perp}\Psi\rangle $$
-The first term equals zero, because:
+The first term equals to zero, because:
 $$W = \frac{\langle\Psi|\hat{H}-i\hbar\frac{\partial}{\partial t}|\Psi\rangle}{\langle\Psi|\Psi\rangle},\ %
       \langle\Psi|\hat{H}-i\hbar\frac{\partial}{\partial t}-W|\Psi\rangle = 0$$
 The last two terms are equal to zero due to Dirac--Frenkel variational principle.
