@@ -1,10 +1,11 @@
-For basis functions $|\phi_k\rangle$ we can choose Gaussian wave packets (GWP):
-$$|g_k(\vec{q}_{k},\vec{p}_{k})\rangle = \left(\frac{\pi}{\omega}\right)^{1/4} e^{\sum_{\alpha=\{x,y,z\}}-\frac{1}{2}\omega(r_{\alpha}-q_{k\alpha})^2+%
-									 ip_{k\alpha}(r_{\alpha}-q_{k\alpha})}$$
+For basis functions $|\phi_k\rangle$ we can choose frozen width Gaussian wave packets (fwGWP):
+$$|g_k(\vec{q}_{k},\vec{p}_{k})\rangle = \left(\frac{\pi}{\omega}\right)^{1/4} \text{exp}\left(\sum_{\alpha}-\frac{1}{2}\omega(r_{\alpha}-q_{k\alpha})^2+%
+									 ip_{k\alpha}(r_{\alpha}-q_{k\alpha})\right)$$
+where $\alpha \in \{x,y,z\}$
 We can transform parameters $(\vec{q}_k,\vec{p}_k)$ to $(\vec{\xi}_k,\vec{\eta}_k)$:
 $$\xi_{k\alpha} = \omega q_{k\alpha}+i p_{k\alpha}$$
 $$\eta_{k\alpha} = \frac{1}{4}\left(\ln\left[{\frac{\omega}{\pi}}\right]-2\omega q_{k\alpha}^2\right)-iq_{k\alpha}p_{k\alpha}$$
 Thus we will obtain another representation of GWP:
-$$|g_k(\vec{\xi}_k,\vec{\eta}_k)\rangle=e^{\sum_{\alpha=\{x,y,z\}}-\frac{1}{2}\omega r_{\alpha}^2+\xi_{k\alpha}r_{\alpha}+\eta_{k\alpha}}$$
+$$|g_k(\vec{\xi}_k,\vec{\eta}_k)\rangle=\text{exp}\left(\sum_{\alpha}-\frac{1}{2}\omega r_{\alpha}^2+\xi_{k\alpha}r_{\alpha}+\eta_{k\alpha}\right)$$
 The matrix elements, that we need to use in EOM:
-
+$$\mathbbm{S}_{mk} = \text{exp}\left(\sum_{\alpha} \frac{(\xi_{m\alpha}^*+\xi_{k\alpha})^2}{4\omega}+(\eta_{m\alpha}^*+\eta_{k\alpha})\right)$$
