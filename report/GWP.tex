@@ -1,6 +1,6 @@
 For basis functions $|\phi_k\rangle$ we can choose frozen width Gaussian wave packets (fwGWP):
 $$|g_k(\vec{q}_{k},\vec{p}_{k})\rangle = \left(\frac{\pi}{\omega}\right)^{1/4} \text{exp}\left(\sum_{\alpha}-\frac{1}{2}\omega(r_{\alpha}-q_{k\alpha})^2+%
-									 ip_{k\alpha}(r_{\alpha}-q_{k\alpha})\right)$$
+									 ip_{k\alpha}(r_{\alpha}-q_{k\alpha})\right)=g_{kx}g_{ky}g_{kz}$$
 where $\alpha \in \{x,y,z\}$
 We can transform parameters $(\vec{q}_k,\vec{p}_k)$ to $(\vec{\xi}_k,\vec{\eta}_k)$:
 $$\xi_{k\alpha} = \omega q_{k\alpha}+i p_{k\alpha}$$
@@ -8,4 +8,44 @@ $$\eta_{k\alpha} = \frac{1}{4}\left(\ln\left[{\frac{\omega}{\pi}}\right]-2\omega
 Thus we will obtain another representation of GWP:
 $$|g_k(\vec{\xi}_k,\vec{\eta}_k)\rangle=\text{exp}\left(\sum_{\alpha}-\frac{1}{2}\omega r_{\alpha}^2+\xi_{k\alpha}r_{\alpha}+\eta_{k\alpha}\right)$$
 The matrix elements, that we need to use in EOM:
-$$\mathbbm{S}_{mk} = \text{exp}\left(\sum_{\alpha} \frac{(\xi_{m\alpha}^*+\xi_{k\alpha})^2}{4\omega}+(\eta_{m\alpha}^*+\eta_{k\alpha})\right)$$
+$$\mathbbm{S}_{mk,\alpha}=\text{exp}\left(\frac{(\xi_{m\alpha}^*+\xi_{k\alpha})^2}{4\omega}+\eta_{m\alpha}^*+\eta_{k\alpha} \right)$$
+$$\mathbbm{S}_{mk} = \text{exp}\left(\sum_{\alpha} \frac{(\xi_{m\alpha}^*+\xi_{k\alpha})^2}{4\omega}+\eta_{m\alpha}^*+\eta_{k\alpha}\right)=%
+  \mathbbm{S}_{mk,x}\mathbbm{S}_{mk,y}\mathbbm{S}_{mk,z}$$
+$$\mathbbm{S}_{mk}^{(\alpha0)}=\langle\frac{\partial g_m}{\partial\xi_{m\alpha}}|g_k\rangle=%
+  \langle g_{m\alpha}|r_{\alpha}|g_{k\alpha}\rangle\left(\underset{\beta\neq\alpha}{\Pi}\mathbbm{S}_{mk,\beta}\right)=%
+  \frac{\left(\xi_{m\alpha}^*+\xi_{k\alpha}\right)}{2\omega}\mathbbm{S}_{mk,x}\mathbbm{S}_{mk,y}\mathbbm{S}_{mk,z}$$
+$$\mathbbm{S}_{mk}^{(0\alpha)}=\langle g_m|\frac{\partial g_k}{\partial\xi_{k\alpha}}\rangle=%
+  \langle g_{m\alpha}|r_{\alpha}|g_{k\alpha}\rangle\left(\underset{\beta\neq\alpha}{\Pi}\mathbbm{S}_{mk,\beta}\right)=%
+  \frac{\left(\xi_{m\alpha}^*+\xi_{k\alpha}\right)}{2\omega}\mathbbm{S}_{mk,x}\mathbbm{S}_{mk,y}\mathbbm{S}_{mk,z}$$
+$$\mathbbm{S}_{mk}^{(\alpha\beta)}=\langle\frac{\partial g_m}{\partial\xi_{m\alpha}}|\frac{\partial g_k}{\partial\xi_{k\beta}}\rangle=%
+  \langle g_{m\alpha}|r_{\alpha}|g_{k\alpha}\rangle\langle g_{m\beta}|r_{\beta}|g_{k\beta}\rangle\mathbbm{S}_{mk,\gamma}=$$
+$$=\frac{\left(\xi_{m\alpha}^*+\xi_{k\alpha}\right)\left(\xi_{m\beta}^*+\xi_{k\beta}\right)}{4\omega^2}\mathbbm{S}_{mk,x}\mathbbm{S}_{mk,y}\mathbbm{S}_{mk,z}$$
+$$\mathbbm{S}_{mk}^{(\alpha\alpha)}=\langle g_{k\alpha}|r_{\alpha}^2|g_{m\alpha}\rangle\left(\underset{\beta\neq\alpha}{\Pi}\mathbbm{S}_{mk,\beta}\right)=%
+  \left(\frac{\left(\xi_{m\alpha}^*+\xi_{k\alpha}\right)^2}{4\omega^2}+\frac{1}{2\omega}\right)\mathbbm{S}_{mk,x}\mathbbm{S}_{mk,y}\mathbbm{S}_{mk,z}$$
+$$\mathbbm{H}_{mk}=\langle g_m|\hat{H}|g_k\rangle=\langle g_m|\hat{T}_N|g_k\rangle+\langle g_m|V(\vec{r})|g_k\rangle=$$
+$$=\frac{\mathbbm{S}_{mk,x}\mathbbm{S}_{mk,y}\mathbbm{S}_{mk,z}}{M}%
+		       \sum_{\alpha}\left( \frac{1}{2}\left(\omega-\xi_{k\alpha}^2\right)+%
+		       \xi_{k\alpha}\frac{\left(\xi_{m\alpha}^*+\xi_{k\alpha}\right)}{2}-%
+		       \left(\frac{\left(\xi_{m\alpha}^*+\xi_{k\alpha}\right)^2}{8}+\frac{\omega}{4}\right)\right)+$$
+$$+\langle g_m|V(\vec{r})|g_k\rangle=$$
+$$=\frac{\mathbbm{S}_{mk,x}\mathbbm{S}_{mk,y}\mathbbm{S}_{mk,z}}{M}%
+   \sum_{\alpha}\left(\frac{\omega+2\xi_{m\alpha}^*\xi_{k\alpha}}{4}-\frac{(\xi_{m\alpha}^*+\xi_{k\alpha})^2}{8} \right)+\langle g_m|V(\vec{r})|g_k\rangle=$$
+$$=\frac{\mathbbm{S}_{mk,x}\mathbbm{S}_{mk,y}\mathbbm{S}_{mk,z}}{M}%
+   \sum_{\alpha}\left(\frac{2\omega-(\xi_{m\alpha}^*-\xi_{k\alpha})^2}{8} \right)+\langle g_m|V(\vec{r})|g_k\rangle$$
+$$\mathbbm{H}_{mk}^{(\alpha0)}=\langle\frac{\partial g_m}{\partial\xi_{m\alpha}}|\hat{H}|g_k\rangle=%
+  -\frac{1}{M}\sum_{\beta}\langle g_m|r_{\alpha}\frac{\partial^2}{\partial\beta^2}|g_k\rangle+\langle g_m|V(\vec{r})|g_k\rangle=$$
+$$=-\frac{1}{M}\langle g_{m\alpha}|r_{\alpha}\frac{\partial^2}{\partial\alpha^2}|g_{k\alpha}\rangle\left(\underset{\beta\neq\alpha}{\Pi}\mathbbm{S}_{mk,\beta}\right)+%
+   \langle g_m|V(\vec{r})|g_k\rangle+$$
+$$ +\frac{\mathbbm{S}_{mk,x}\mathbbm{S}_{mk,y}\mathbbm{S}_{mk,z}}{M}\frac{\xi_{m\alpha}^*+\xi_{k\alpha}}{2\omega}%
+    \sum_{\beta\neq\alpha}\left(\frac{2\omega-(\xi_{m\beta}^*-\xi_{k\beta})^2}{8}\right)=$$
+$$=\frac{\mathbbm{S}_{mk,x}\mathbbm{S}_{mk,y}\mathbbm{S}_{mk,z}}{M}\frac{\xi_{m\alpha}^*+\xi_{k\alpha}}{2\omega}%
+    \sum_{\beta}\left(\frac{2\omega-(\xi_{m\beta}^*-\xi_{k\beta})^2}{8}\right)+\langle g_m|V(\vec{r})|g_k\rangle$$
+For all matrix elements, except the mean value of electron potential, we have obtained explicit equations.
+
+The trick of GWP representation is as follows: we shift from parameters $(q_k,p_k)$ to $(\xi_k,\eta_k)$, 
+where we can more easily calculate matrix elements.
+But then we also see, that actually we do not need to propogate both $\xi_k$ and $\eta_k$.
+Rather we can calculate $\dot{\xi}_k$, switch back to $\dot{q}_k=\mathit{Re}(\dot{\xi}_k)/\omega$ 
+and $\dot{p}_k=\mathit{Im}(\dot{\xi}_k)$ and calculate $q_k(t+\Delta t)$ and $p_k(t+\Delta t)$.
+
+
