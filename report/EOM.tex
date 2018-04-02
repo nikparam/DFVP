@@ -1,8 +1,8 @@
 Let us assume, that function $|\Psi\rangle$ can be spanned over linear combination of basis functions $\{|\phi_k(\vec{\lambda})\rangle\}_{k=1}^N$:
-$$|\Psi\rangle = \sum_{k=1}^NC_k|\phi_k(\vec{\lambda})\rangle, \dim\{\vec{\lambda}\} = M$$
+$$|\Psi\rangle = \sum_{k=1}^NC_k(t)|\phi_k(\vec{\lambda})\rangle, \dim\{\vec{\lambda}\} = M$$
 Then we can consider a variation of $|\Psi\rangle$:
-$$|\delta\Psi\rangle = \sum_{k=1}^N \left( \delta C_k|\phi_k(\vec{\lambda})\rangle + %
-					   C_k\sum_{j=1}^M|\frac{\partial\phi_k(\vec{\lambda})}{\partial\lambda_{kj}}\rangle\delta\lambda_{kj} \right)$$
+$$|\delta\Psi\rangle = \sum_{k=1}^N \left( \delta C_k|\phi_k\rangle + %
+					   C_k\sum_{j=1}^M|\frac{\partial\phi_k}{\partial\lambda_{kj}}\rangle\delta\lambda_{kj} \right)$$
 Thus, using Dirac--Frenkel variational principle, we will obtain:
 $$\delta C_m^*\sum_{k=1}^N\langle\phi_m|\hat{H}-i\hbar\frac{\partial}{\partial t}|C_k\phi_k\rangle=0$$
 $$\delta\lambda_{mj}^*\sum_{k=0}^NC_m^*\langle\frac{\partial\phi_m}{\partial\lambda_{mj}}|\hat{H}-i\hbar\frac{\partial}{\partial t}|C_k\phi_k\rangle = 0$$
