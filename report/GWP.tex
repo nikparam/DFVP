@@ -11,13 +11,13 @@ The matrix elements, that we need to use in EOM:
 $$\mathbbm{S}_{mk,\alpha}=\text{exp}\left(\frac{(\xi_{m\alpha}^*+\xi_{k\alpha})^2}{4\omega}+\eta_{m\alpha}^*+\eta_{k\alpha} \right)$$
 $$\mathbbm{S}_{mk} = \text{exp}\left(\sum_{\alpha} \frac{(\xi_{m\alpha}^*+\xi_{k\alpha})^2}{4\omega}+\eta_{m\alpha}^*+\eta_{k\alpha}\right)=%
   \mathbbm{S}_{mk,x}\mathbbm{S}_{mk,y}\mathbbm{S}_{mk,z}$$
-$$\mathbbm{S}_{mk}^{(\alpha0)}=\langle\frac{\partial g_m}{\partial\xi_{m\alpha}}|g_k\rangle=%
+$$\mathbbm{S}_{mk}^{(\alpha0)}=\left.\left\langle\frac{\partial g_m}{\partial\xi_{m\alpha}}\right|g_k\right\rangle=%
   \langle g_{m\alpha}|r_{\alpha}|g_{k\alpha}\rangle\left(\underset{\beta\neq\alpha}{\Pi}\mathbbm{S}_{mk,\beta}\right)=%
   \frac{\left(\xi_{m\alpha}^*+\xi_{k\alpha}\right)}{2\omega}\mathbbm{S}_{mk,x}\mathbbm{S}_{mk,y}\mathbbm{S}_{mk,z}$$
-$$\mathbbm{S}_{mk}^{(0\alpha)}=\langle g_m|\frac{\partial g_k}{\partial\xi_{k\alpha}}\rangle=%
+$$\mathbbm{S}_{mk}^{(0\alpha)}=\left\langle g_m\left|\frac{\partial g_k}{\partial\xi_{k\alpha}}\right.\right\rangle=%
   \langle g_{m\alpha}|r_{\alpha}|g_{k\alpha}\rangle\left(\underset{\beta\neq\alpha}{\Pi}\mathbbm{S}_{mk,\beta}\right)=%
   \frac{\left(\xi_{m\alpha}^*+\xi_{k\alpha}\right)}{2\omega}\mathbbm{S}_{mk,x}\mathbbm{S}_{mk,y}\mathbbm{S}_{mk,z}$$
-$$\mathbbm{S}_{mk}^{(\alpha\beta)}=\langle\frac{\partial g_m}{\partial\xi_{m\alpha}}|\frac{\partial g_k}{\partial\xi_{k\beta}}\rangle=%
+$$\mathbbm{S}_{mk}^{(\alpha\beta)}=\left\langle\frac{\partial g_m}{\partial\xi_{m\alpha}}\left|\frac{\partial g_k}{\partial\xi_{k\beta}}\right.\right\rangle=%
   \langle g_{m\alpha}|r_{\alpha}|g_{k\alpha}\rangle\langle g_{m\beta}|r_{\beta}|g_{k\beta}\rangle\mathbbm{S}_{mk,\gamma}=$$
 $$=\frac{\left(\xi_{m\alpha}^*+\xi_{k\alpha}\right)\left(\xi_{m\beta}^*+\xi_{k\beta}\right)}{4\omega^2}\mathbbm{S}_{mk,x}\mathbbm{S}_{mk,y}\mathbbm{S}_{mk,z}$$
 $$\mathbbm{S}_{mk}^{(\alpha\alpha)}=\langle g_{k\alpha}|r_{\alpha}^2|g_{m\alpha}\rangle\left(\underset{\beta\neq\alpha}{\Pi}\mathbbm{S}_{mk,\beta}\right)=%
@@ -32,9 +32,9 @@ $$=\frac{\mathbbm{S}_{mk,x}\mathbbm{S}_{mk,y}\mathbbm{S}_{mk,z}}{M}%
    \sum_{\alpha}\left(\frac{\omega+2\xi_{m\alpha}^*\xi_{k\alpha}}{4}-\frac{(\xi_{m\alpha}^*+\xi_{k\alpha})^2}{8} \right)+\langle g_m|V(\vec{r})|g_k\rangle=$$
 $$=\frac{\mathbbm{S}_{mk,x}\mathbbm{S}_{mk,y}\mathbbm{S}_{mk,z}}{M}%
    \sum_{\alpha}\left(\frac{2\omega-(\xi_{m\alpha}^*-\xi_{k\alpha})^2}{8} \right)+\langle g_m|V(\vec{r})|g_k\rangle$$
-$$\mathbbm{H}_{mk}^{(\alpha0)}=\langle\frac{\partial g_m}{\partial\xi_{m\alpha}}|\hat{H}|g_k\rangle=%
-  -\frac{1}{M}\sum_{\beta}\langle g_m|r_{\alpha}\frac{\partial^2}{\partial\beta^2}|g_k\rangle+\langle g_m|V(\vec{r})|g_k\rangle=$$
-$$=-\frac{1}{M}\langle g_{m\alpha}|r_{\alpha}\frac{\partial^2}{\partial\alpha^2}|g_{k\alpha}\rangle\left(\underset{\beta\neq\alpha}{\Pi}\mathbbm{S}_{mk,\beta}\right)+%
+$$\mathbbm{H}_{mk}^{(\alpha0)}=\left.\left.\left\langle\frac{\partial g_m}{\partial\xi_{m\alpha}}\right|\hat{H}\right|g_k\right\rangle=%
+  -\frac{1}{M}\sum_{\beta}\left\langle g_m\left|r_{\alpha}\frac{\partial^2}{\partial\beta^2}\right|g_k\right\rangle+\langle g_m|V(\vec{r})|g_k\rangle=$$
+$$=-\frac{1}{M}\left\langle g_{m\alpha}\left|r_{\alpha}\frac{\partial^2}{\partial\alpha^2}\right|g_{k\alpha}\right\rangle\left(\underset{\beta\neq\alpha}{\Pi}\mathbbm{S}_{mk,\beta}\right)+%
    \langle g_m|V(\vec{r})|g_k\rangle+$$
 $$ +\frac{\mathbbm{S}_{mk,x}\mathbbm{S}_{mk,y}\mathbbm{S}_{mk,z}}{M}\frac{\xi_{m\alpha}^*+\xi_{k\alpha}}{2\omega}%
     \sum_{\beta\neq\alpha}\left(\frac{2\omega-(\xi_{m\beta}^*-\xi_{k\beta})^2}{8}\right)=$$

@@ -72,23 +72,23 @@ Now we can write down variation $\delta W$.
 For simplicity, we shall denote $\langle\Psi|\hat{H}-i\hbar\frac{\partial}{\partial t}|\Psi\rangle$ as $A$ 
 and $\langle\Psi|\Psi\rangle$ as $B$:
 $$W = \frac{A}{B},\ \delta W = \frac{B\cdot\delta A - A\cdot\delta B}{B^2}=\frac{\delta A - W\delta B}{B}$$
-$$\delta A - W\delta B = \langle\delta\Psi|\hat{H}-i\hbar\frac{\partial}{\partial t}|\Psi\rangle + %
-			 \langle\Psi|\hat{H}-i\hbar\frac{\partial}{\partial t}|\delta\Psi\rangle - 
+$$\delta A - W\delta B = \left\langle\delta\Psi\left|\hat{H}-i\hbar\frac{\partial}{\partial t}\right|\Psi\right\rangle + %
+			 \left\langle\Psi\left|\hat{H}-i\hbar\frac{\partial}{\partial t}\right|\delta\Psi\right\rangle - 
 			 W\langle\delta\Psi|\Psi\rangle - W\langle\Psi|\delta\Psi\rangle = $$
-$$ = \langle\delta\Psi|\hat{H}-i\hbar\frac{\partial}{\partial t}|\Psi\rangle + %
-     \langle\Psi|\hat{H}-i\hbar\frac{\partial}{\partial t}|\delta\Psi\rangle - W\delta\langle\Psi|\Psi\rangle$$
+$$ = \left\langle\delta\Psi\left|\hat{H}-i\hbar\frac{\partial}{\partial t}\right|\Psi\right\rangle + %
+     \left\langle\Psi\left|\hat{H}-i\hbar\frac{\partial}{\partial t}\right|\delta\Psi\right\rangle - W\delta\langle\Psi|\Psi\rangle$$
 As $\delta\langle\Psi|\Psi\rangle=0,\ \delta W = 0$, we obtain:
 \begin{equation}
-\langle\delta\Psi|\hat{H}-i\hbar\frac{\partial}{\partial t}|\Psi\rangle = 0\text{ --- Dirac--Frenkel variational principal}
+\left\langle\delta\Psi\left|\hat{H}-i\hbar\frac{\partial}{\partial t}\right|\Psi\right\rangle = 0\text{ --- Dirac--Frenkel variational principal}
 \label{eq:3}
 \end{equation}
-$$\langle\Psi|\hat{H}-i\hbar\frac{\partial}{\partial t}|\delta\Psi\rangle = 0$$
+$$\left\langle\Psi\left|\hat{H}-i\hbar\frac{\partial}{\partial t}\right|\delta\Psi\right\rangle = 0$$
 We shall consider the second equation:
-$$\langle\Psi|\hat{H}-i\hbar\frac{\partial}{\partial t}|\delta\Psi\rangle = %
+$$\left\langle\Psi\left|\hat{H}-i\hbar\frac{\partial}{\partial t}\right|\delta\Psi\right\rangle = %
   \left\langle\left.\left(\hat{H}-i\hbar\frac{\partial}{\partial t}\right)\Psi\right|\delta\Psi\right\rangle-%
   i\hbar\left.\left\langle\frac{\partial\Psi}{\partial t}\right|\delta\Psi\right\rangle-%
   i\hbar\left\langle\Psi\left|\frac{\partial}{\partial t}\delta\Psi\right\rangle\right.=$$
-$$=\langle\delta\Psi|\hat{H}-i\hbar\frac{\partial}{\partial t}|\Psi\rangle^* -%
+$$=\left\langle\delta\Psi\left|\hat{H}-i\hbar\frac{\partial}{\partial t}\right|\Psi\right\rangle^* -%
    i\hbar\frac{\partial}{\partial t}\langle\Psi|\delta\Psi\rangle = 0$$
 Thus, the second equation is a mere consiquence of Dirac--Frenkel variational principal (\ref{eq:3}) and condition (\ref{eq:2}).
 
@@ -96,17 +96,17 @@ Previously we have discussed the case of orthogonal variation $|\delta\Psi\rangl
 Arbitraty variations $|\delta\Psi\rangle$ can be rewritten as sum of $|\Psi\rangle$ and $|\delta_{\perp}\Psi\rangle$:
 $$|\delta\Psi\rangle = c_{||}|\Psi\rangle + c_{\perp}|\delta_{\perp}\Psi\rangle$$
 Variation of $W$ will have the following look:
-$$\delta W = \langle\delta\Psi|\hat{H}-i\hbar\frac{\partial}{\partial t}|\Psi\rangle + %
-	     \langle\Psi|\hat{H}-i\hbar\frac{\partial}{\partial t}|\delta\Psi\rangle - 
+$$\delta W = \left\langle\delta\Psi\left|\hat{H}-i\hbar\frac{\partial}{\partial t}\right|\Psi\right\rangle + %
+	     \left\langle\Psi\left|\hat{H}-i\hbar\frac{\partial}{\partial t}\right|\delta\Psi\right\rangle - 
 	     W\langle\delta\Psi|\Psi\rangle - W\langle\Psi|\delta\Psi\rangle = $$
-$$ = \langle\delta\Psi|\hat{H}-i\hbar\frac{\partial}{\partial t}-W|\Psi\rangle + %
-     \langle\Psi|\hat{H}-i\hbar\frac{\partial}{\partial t}-W|\delta\Psi\rangle = $$
-$$ = 2\mathit{Re}(c_{||})\langle\Psi|\hat{H}-i\hbar\frac{\partial}{\partial t}-W|\Psi\rangle - %
-     c_{\perp}^*\langle\delta_{\perp}\Psi|\hat{H}-i\hbar\frac{\partial}{\partial t}-W|\Psi\rangle - %
-     c_{\perp}\langle\Psi|\hat{H}-i\hbar\frac{\partial}{\partial t}-W|\delta_{\perp}\Psi\rangle $$
+$$ = \left\langle\delta\Psi\left|\hat{H}-i\hbar\frac{\partial}{\partial t}-W\right|\Psi\right\rangle + %
+     \left\langle\Psi\left|\hat{H}-i\hbar\frac{\partial}{\partial t}-W\right|\delta\Psi\right\rangle = $$
+$$ = 2\mathit{Re}(c_{||})\left\langle\Psi\left|\hat{H}-i\hbar\frac{\partial}{\partial t}-W\right|\Psi\right\rangle - %
+     c_{\perp}^*\left\langle\delta_{\perp}\Psi\left|\hat{H}-i\hbar\frac{\partial}{\partial t}-W\right|\Psi\right\rangle - $$
+$$ - c_{\perp}\left\langle\Psi\left|\hat{H}-i\hbar\frac{\partial}{\partial t}-W\right|\delta_{\perp}\Psi\right\rangle $$
 The first term equals to zero, because:
 $$W = \frac{\langle\Psi|\hat{H}-i\hbar\frac{\partial}{\partial t}|\Psi\rangle}{\langle\Psi|\Psi\rangle},\ %
-      \langle\Psi|\hat{H}-i\hbar\frac{\partial}{\partial t}-W|\Psi\rangle = 0$$
+      \left\langle\Psi\left|\hat{H}-i\hbar\frac{\partial}{\partial t}-W\right|\Psi\right\rangle = 0$$
 The last two terms are equal to zero due to Dirac--Frenkel variational principle.
 
 

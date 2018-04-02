@@ -1,36 +1,36 @@
 We have discussed arbitrary variations of wave function $|\Psi\rangle$, that don't affect parameters of hamiltonian $\hat{H}$.
 To write DFVP in the most genral form, we need to consider variations $|\delta\Psi\rangle$ of the following form:
-$$|\delta\Psi\rangle=|\frac{\partial\Psi}{\partial\varepsilon}\rangle\delta\epsilon,\ \hat{H}=\hat{H}(\varepsilon)$$
+$$|\delta\Psi\rangle=\left|\frac{\partial\Psi}{\partial\varepsilon}\right\rangle\delta\epsilon,\ \hat{H}=\hat{H}(\varepsilon)$$
 To preserve the form of DFVP for that kind of variation, we need to introduce one more condition, 
 that should be met by approximate wave function $|\Psi\rangle$.
 Let us consider the following equation:
-$$\langle\Phi_{ex}(t)|\frac{\partial\hat{H}}{\partial\varepsilon}|\Phi_{ex}(t)\rangle = %
-  i\hbar\langle\Phi_{ex}(t)|\frac{\partial\Phi_{ex}(t)}{\partial\varepsilon}\rangle$$
+$$\left\langle\Phi_{ex}(t)\left|\frac{\partial\hat{H}}{\partial\varepsilon}\right|\Phi_{ex}(t)\right\rangle = %
+  i\hbar\left\langle\Phi_{ex}(t)\left|\frac{\partial\Phi_{ex}(t)}{\partial\varepsilon}\right.\right\rangle$$
 where $|\Phi_{ex}(t)\rangle$ --- exact solution of time dependant Shr\"{o}dinger equation.
-That equation is a statement of time dependant Hellman--Feynman theorem (tdHFT). 
+That equation is a statement of time dependant Hellmann--Feynman theorem (tdHFT). 
 To prove it, we will consider the following matrix element:
 $$\frac{\partial}{\partial\varepsilon}\langle\Phi_{ex}(t)|\hat{H}|\Phi_{ex}(t)\rangle=%
-				      \langle\frac{\partial\Phi_{ex}(t)}{\partial\varepsilon}|\hat{H}|\Phi_{ex}(t)\rangle+%
-				      \langle\Phi_{ex}(t)|\frac{\partial\hat{H}}{\partial\varepsilon}|\Phi_{ex}(t)\rangle+%
-				      \langle\Phi_{ex}(t)|\hat{H}|\frac{\partial\Phi_{ex}(t)}{\partial\varepsilon}\rangle=$$
-$$=i\hbar\langle\frac{\partial\Phi_{ex}(t)}{\partial\varepsilon}|\frac{\partial\Phi_{ex}(t)}{\partial t}\rangle-%
-   i\hbar\langle\frac{\partial\Phi_{ex}(t)}{\partial t}|\frac{\partial\Phi_{ex}(t)}{\partial\varepsilon}\rangle+
-   \langle\Phi_{ex}(t)|\frac{\partial\hat{H}}{\partial\varepsilon}|\Phi_{ex}(t)\rangle$$
-$$\langle\Phi_{ex}(t)|\frac{\partial\hat{H}}{\partial\varepsilon}|\Phi_{ex}(t)\rangle=%
-  i\hbar\frac{\partial}{\partial\varepsilon}\langle\Phi_{ex}(t)|\frac{\partial\Phi_{ex}(t)}{\partial t}\rangle+%
-  i\hbar\langle\frac{\partial\Phi_{ex}(t)}{\partial t}|\frac{\partial\Phi_{ex}(t)}{\partial\varepsilon}\rangle-%
-  i\hbar\langle\frac{\partial\Phi_{ex}(t)}{\partial\varepsilon}|\frac{\partial\Phi_{ex}(t)}{\partial t}\rangle=$$
-$$=i\hbar\langle\Phi_{ex}(t)|\frac{\partial^2\Phi_{ex}(t)}{\partial\varepsilon\partial t}\rangle+%
-   i\hbar\langle\frac{\partial\Phi_{ex}(t)}{\partial t}|\frac{\partial\Phi_{ex}(t)}{\partial\varepsilon}\rangle=$$
-$$=i\hbar\frac{\partial}{\partial t}\langle\Phi_{ex}(t)|\frac{\partial\Phi_{ex}(t)}{\partial\varepsilon}\rangle$$
+				      \left\langle\frac{\partial\Phi_{ex}(t)}{\partial\varepsilon}\left|\hat{H}\right|\Phi_{ex}(t)\right\rangle+%
+				      \left\langle\Phi_{ex}(t)\left|\frac{\partial\hat{H}}{\partial\varepsilon}\right|\Phi_{ex}(t)\right\rangle+$$
+$$ 				     -\left\langle\Phi_{ex}(t)\left|\hat{H}\right|\frac{\partial\Phi_{ex}(t)}{\partial\varepsilon}\right\rangle=$$
+$$=i\hbar\left\langle\frac{\partial\Phi_{ex}(t)}{\partial\varepsilon}\left|\frac{\partial\Phi_{ex}(t)}{\partial t}\right.\right\rangle-%
+   i\hbar\left\langle\frac{\partial\Phi_{ex}(t)}{\partial t}\left|\frac{\partial\Phi_{ex}(t)}{\partial\varepsilon}\right.\right\rangle+
+   \left\langle\Phi_{ex}(t)\left|\frac{\partial\hat{H}}{\partial\varepsilon}\right|\Phi_{ex}(t)\right\rangle$$
+$$\left\langle\Phi_{ex}(t)\left|\frac{\partial\hat{H}}{\partial\varepsilon}\right|\Phi_{ex}(t)\right\rangle=$$
+$$=i\hbar\frac{\partial}{\partial\varepsilon}\left\langle\Phi_{ex}(t)\left|\frac{\partial\Phi_{ex}(t)}{\partial t}\right.\right\rangle+%
+   i\hbar\left\langle\frac{\partial\Phi_{ex}(t)}{\partial t}\left|\frac{\partial\Phi_{ex}(t)}{\partial\varepsilon}\right.\right\rangle-%
+   i\hbar\left\langle\frac{\partial\Phi_{ex}(t)}{\partial\varepsilon}\left|\frac{\partial\Phi_{ex}(t)}{\partial t}\right.\right\rangle=$$
+$$=i\hbar\left\langle\Phi_{ex}(t)\left|\frac{\partial^2\Phi_{ex}(t)}{\partial\varepsilon\partial t}\right.\right\rangle+%
+   i\hbar\left\langle\frac{\partial\Phi_{ex}(t)}{\partial t}\left|\frac{\partial\Phi_{ex}(t)}{\partial\varepsilon}\right.\right\rangle=$$
+$$=i\hbar\frac{\partial}{\partial t}\left\langle\Phi_{ex}(t)\left|\frac{\partial\Phi_{ex}(t)}{\partial\varepsilon}\right.\right\rangle$$
 Now we need to consider $\delta W$ in terms of new type of variations:
 $$\delta W = \frac{\delta A - W\delta B}{B}$$
 As we remember, $\delta B = 0$. Thus, to ensure $\delta W = 0$, we need $\delta A = 0$:
-$$\delta\langle\Psi|\hat{H}-i\hbar\frac{\partial}{\partial t}|\Psi\rangle=%
-	\langle\delta\Psi|\hat{H}-i\hbar\frac{\partial}{\partial t}|\Psi\rangle + %
-	\langle\delta\Psi|\hat{H}-i\hbar\frac{\partial}{\partial t}|\Psi\rangle^*-%
-	i\hbar\frac{\partial}{\partial t}\langle\Psi|\frac{\partial\Psi}{\partial\varepsilon}\rangle\delta\varepsilon+%
-	\langle\Psi|\frac{\partial\hat{H}}{\partial\varepsilon}|\Psi\rangle\delta\varepsilon
+$$\delta\left\langle\Psi\left|\hat{H}-i\hbar\frac{\partial}{\partial t}\right|\Psi\right\rangle=%
+	\left\langle\delta\Psi\left|\hat{H}-i\hbar\frac{\partial}{\partial t}\right|\Psi\right\rangle + %
+	\left\langle\delta\Psi\left|\hat{H}-i\hbar\frac{\partial}{\partial t}\right|\Psi\right\rangle^*-$$
+$$      -i\hbar\frac{\partial}{\partial t}\left\langle\Psi\left|\frac{\partial\Psi}{\partial\varepsilon}\right.\right\rangle\delta\varepsilon+%
+	\left\langle\Psi\left|\frac{\partial\hat{H}}{\partial\varepsilon}\right|\Psi\right\rangle\delta\varepsilon
 	$$
 We need to make our function $|\Psi\rangle$ to behave in such a way, 
 that tdHFT will be valid. 
