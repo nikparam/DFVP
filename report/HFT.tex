@@ -1,13 +1,13 @@
-We have discussed arbitrary variations of wave function $|\Psi\rangle$, that don't affect parameters of hamiltonian $\hat{H}$.
-To write DFVP in the most genral form, we need to consider variations $|\delta\Psi\rangle$ of the following form:
-$$|\delta\Psi\rangle=\left|\frac{\partial\Psi}{\partial\varepsilon}\right\rangle\delta\epsilon,\ \hat{H}=\hat{H}(\varepsilon)$$
-To preserve the form of DFVP for that kind of variation, we need to introduce one more condition, 
-that should be met by approximate wave function $|\Psi\rangle$.
+We have discussed arbitrary variations of wave function $|\Psi\rangle$ that don't affect parameters of hamiltonian $\hat{H}$.
+To write Dirac--Frenkel variational principle in the most general form, we need to consider variations $|\delta\Psi\rangle$ of the following form:
+$$|\delta\Psi\rangle=\left|\frac{\partial\Psi}{\partial\varepsilon}\right\rangle\delta\varepsilon,\ \hat{H}=\hat{H}(\varepsilon)$$
+To preserve the form of DFVP for that kind of variation, we need to introduce one more condition,
+ that should be met by approximate wave function $|\Psi\rangle$.
 Let us consider the following equation:
 $$\left\langle\Phi_{ex}(t)\left|\frac{\partial\hat{H}}{\partial\varepsilon}\right|\Phi_{ex}(t)\right\rangle = %
-  i\hbar\left\langle\Phi_{ex}(t)\left|\frac{\partial\Phi_{ex}(t)}{\partial\varepsilon}\right.\right\rangle$$
-where $|\Phi_{ex}(t)\rangle$ --- exact solution of time dependant Shr\"{o}dinger equation.
-That equation is a statement of time dependant Hellmann--Feynman theorem (tdHFT). 
+  i\hbar\frac{\partial}{\partial t}\left\langle\Phi_{ex}(t)\left|\frac{\partial\Phi_{ex}(t)}{\partial\varepsilon}\right.\right\rangle$$
+where $|\Phi_{ex}(t)\rangle$ --- exact solution of time dependent Shr\"{o}dinger equation.
+The equation is a statement of time dependant Hellmann--Feynman theorem (tdHFT). 
 To prove it, we will consider the following matrix element:
 $$\frac{\partial}{\partial\varepsilon}\langle\Phi_{ex}(t)|\hat{H}|\Phi_{ex}(t)\rangle=%
 				      \left\langle\frac{\partial\Phi_{ex}(t)}{\partial\varepsilon}\left|\hat{H}\right|\Phi_{ex}(t)\right\rangle+%

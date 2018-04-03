@@ -1,30 +1,32 @@
-Let us assume, that function $|\Psi\rangle$ can be spanned over linear combination of basis functions $\{|\phi_k(\lambda_1,\ldots,\lambda_M)\rangle\}_{k=1}^N$:
+Let us assume that function $|\Psi\rangle$ can be represented by  basis functions \\
+$\{|\phi_k(\lambda_1,\ldots,\lambda_M)\rangle\}_{k=1}^N$ expansion:
 $$|\Psi\rangle = \sum_{k=1}^NC_k(t)|\phi_k(\lambda_1,\ldots,\lambda_M)\rangle$$
 Then we can consider a variation of $|\Psi\rangle$:
 $$|\delta\Psi\rangle = \sum_{k=1}^N \left( \delta C_k|\phi_k\rangle + %
 					   C_k\sum_{j=1}^M\left|\frac{\partial\phi_k}{\partial\lambda_{kj}}\right\rangle\delta\lambda_{kj} \right)$$
-Thus, using Dirac--Frenkel variational principle, we will obtain:
+Thus, using Dirac--Frenkel variational principle we will obtain
 $$\delta C_m^*\sum_{k=1}^N\left\langle\phi_m\left|\hat{H}-i\hbar\frac{\partial}{\partial t}\right|C_k\phi_k\right\rangle=0$$
 $$\delta\lambda_{mj}^*\sum_{k=0}^NC_m^*\left\langle\frac{\partial\phi_m}{\partial\lambda_{mj}}\left|\hat{H}-i\hbar\frac{\partial}{\partial t}\right|C_k\phi_k\right\rangle = 0$$
-As variations are independant and arbitrary, we will get two sets of equations:
+As variations are independent and arbitrary, we will get two sets of equations:
 $$\sum_{k=1}^N\left\langle\phi_m\left|\hat{H}-i\hbar\frac{\partial}{\partial t}\right|C_k\phi_k\right\rangle=0$$
 $$\sum_{k=0}^NC_m^*\left\langle\frac{\partial\phi_m}{\partial\lambda_{mj}}\left|\hat{H}-i\hbar\frac{\partial}{\partial t}\right|C_k\phi_k\right\rangle = 0$$
 
 Let us consider the first equation:
 $$\sum_{k=1}^N \left(C_k\langle\phi_m|\hat{H}|\phi_k\rangle - %
 	       i\hbar\langle\phi_m|\phi_k\rangle \dot{C}_k - %
-	       i\hbar\sum_{l=1}^M\left\langle\phi_m\left|\frac{\partial\phi_k}{\partial\lambda_{kl}}\right.\right\rangle\dot{\lambda}_{kl}\right)=0$$
+	       i\hbar\sum_{l=1}^MC_k\left\langle\phi_m\left|\frac{\partial\phi_k}{\partial\lambda_{kl}}\right.\right\rangle\dot{\lambda}_{kl}\right)=0$$
 $$i\hbar\sum_{k=1}^N\mathbbm{S}_{mk}\dot{C}_k=\sum_{k=1}^N\left(\mathbbm{H}_{mk}-%
 							  i\hbar\sum_{l=1}^M\left\langle\phi_m\left|\frac{\partial\phi_k}{\partial\lambda_{kl}}\right.\right\rangle\dot{\lambda}_{kl}\right)C_k$$
-$$i\hbar\mathbbm{S}\dot{\vec{C}}=(\mathbbm{H}-i\hbar\tau)\vec{C}$$
-$$\dot{\vec{C}} = -\frac{i}{\hbar}\mathbbm{S}^{-1}(\mathbbm{H}-i\hbar\tau)\vec{C}$$
-$$\dot{C}_k = -\frac{i}{\hbar}\sum_{n,r=1}^N \mathbbm{S}^{-1}_{kn}(\mathbbm{H}_{nr}-i\hbar\tau_{nr})C_r$$
+$$i\hbar\sum_{k=1}^N\mathbbm{S}_{mk}\dot{C}_k=\sum_{k=1}^N(\mathbbm{H}_{mk}-i\hbar\boldsymbol{\tau}_{mk})C_k$$
+$$i\hbar\mathbbm{S}\dot{\vec{C}}=(\mathbbm{H}-i\hbar\boldsymbol{\tau})\vec{C}$$
+$$\dot{\vec{C}} = -\frac{i}{\hbar}\mathbbm{S}^{-1}(\mathbbm{H}-i\hbar\boldsymbol{\tau})\vec{C}$$
+$$\dot{C}_k = -\frac{i}{\hbar}\sum_{n,r=1}^N \mathbbm{S}^{-1}_{kn}(\mathbbm{H}_{nr}-i\hbar\boldsymbol{\tau}_{nr})C_r$$
 And the second one:
 $$\sum_{k=1}^N\left.\left.\left(C_m^*C_k\left\langle\frac{\partial\phi_m}{\partial\lambda_{mj}}\right|\hat{H}\right|\phi_k\right\rangle-%
 	     i\hbar\left.\left\langle\frac{\partial\phi_m}{\partial\lambda_{mj}}\right|\phi_k\right\rangle C_m^*\dot{C}_k-\right.$$
 $$\left.    -i\hbar\sum_{l=1}^MC_m^*C_k\left\langle\frac{\partial\phi_m}{\partial\lambda_{mj}}\left|\frac{\partial\phi_k}{\partial\lambda_{kl}}\right.\right\rangle\dot{\lambda}_{kl}\right)=0$$
 $$\sum_{k=1}^N\left(C_m^*C_k\left.\left.\left\langle\frac{\partial\phi_m}{\partial\lambda_{mj}}\right|\hat{H}\right|\phi_k\right\rangle-%
-		    \left\langle\frac{\partial\phi_m}{\partial\lambda_{mj}}\left|\phi_k\right.\right\rangle\sum_{n,r=1}^N\mathbbm{S}^{-1}_{kn}\mathbbm{H}_{nr}C_m^*C_r\right)=$$
+		    \left.\left\langle\frac{\partial\phi_m}{\partial\lambda_{mj}}\right|\phi_k\right\rangle\sum_{n,r=1}^N\mathbbm{S}^{-1}_{kn}\mathbbm{H}_{nr}C_m^*C_r\right)=$$
 $$= \sum_{k=1}^N\left(-i\hbar\sum_{n,r=1}^N\left.\left\langle\frac{\partial\phi_m}{\partial\lambda_{mj}}\right|\phi_k\right\rangle\mathbbm{S}_{kn}^{-1}%
 		             \sum_{l=1}^M\left\langle\phi_n\left|\frac{\partial\phi_r}{\partial\lambda_{rl}}\right.\right\rangle\dot{\lambda}_{rl}C_m^*C_r+\right.$$
 $$\left.     +i\hbar\sum_{l=1}^MC_m^*C_k\left\langle\frac{\partial\phi_m}{\partial\lambda_{mj}}\left|\frac{\partial\phi_k}{\partial\lambda_{kl}}\right.\right\rangle\dot{\lambda}_{kl}\right)$$
@@ -43,11 +45,13 @@ $$\sum_{k=1}^N\rho_{mk}\left(\mathbbm{H}_{mk}^{(j0)}-%
 	                     (\mathbbm{S}^{(j0)}\mathbbm{S}^{-1}\mathbbm{H})_{mk} \right)=%
 i\hbar\sum_{l=1}^M\sum_{k=1}^N\rho_{mk}\left(\mathbbm{S}_{mk}^{(jl)}-%
 					     (\mathbbm{S}^{(j0)}\mathbbm{S}^{-1}\mathbbm{S}^{(0l)})_{mk}\right)\dot{\lambda}_{kl}$$
-$$Y_{k}^l=\sum_{r=1}^N\rho_{kr}\left(\mathbbm{H}_{kr}^{(j0)}-%
-	                     (\mathbbm{S}^{(l0)}\mathbbm{S}^{-1}\mathbbm{H})_{kr} \right)$$
-$$X_{mk}^{jl}=\rho_{mk}\left(\mathbbm{S}_{mk}^{(jl)}-%
+$$\mathbbm{Y}_{m}^j=\sum_{k=1}^N\rho_{mk}\left(\mathbbm{H}_{mk}^{(j0)}-%
+	                     (\mathbbm{S}^{(j0)}\mathbbm{S}^{-1}\mathbbm{H})_{mk} \right)$$
+$$\mathbbm{X}_{mk}^{jl}=\rho_{mk}\left(\mathbbm{S}_{mk}^{(jl)}-%
 					     (\mathbbm{S}^{(j0)}\mathbbm{S}^{-1}\mathbbm{S}^{(0l)})_{mk}\right)$$
-$$i\hbar\dot{\Lambda} = \mathbbm{X}^{-1}\mathbbm{Y},\text{ where }\Lambda\text{ is matrix}$$
+$$i\hbar\sum_{l=1}^M\sum_{k=1}^N\mathbbm{X}_{mk}^{(jl)}\dot{\lambda}_{kl}=\mathbbm{Y}_m^j$$
+$$i\hbar\mathbbm{X}\dot{\Lambda}=\mathbbm{Y}$$
+$$\dot{\Lambda} = -\frac{i}{\hbar}\mathbbm{X}^{-1}\mathbbm{Y},\text{ where }\Lambda\text{ is matrix}$$
 Thus, we have two sets of equations:
 $$\dot{\vec{C}} = -\frac{i}{\hbar}\mathbbm{S}^{-1}(\mathbbm{H}-i\hbar\tau)\vec{C}$$
 $$\dot{\Lambda} = -\frac{i}{\hbar}\mathbbm{X}^{-1}\mathbbm{Y}$$
