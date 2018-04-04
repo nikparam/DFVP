@@ -1,0 +1,34 @@
+First, let's consider time dependent Hellmann--Feynman theorem, 
+when $|\Psi\rangle=|g\rangle$ --- one gaussian wave packet, 
+$\varepsilon = \vec{q}$ or $\vec{p}$, $\hbar=1$.
+
+$$\left\langle g\left|\frac{\partial\hat{H}}{\partial \vec{q}}\right|g\right\rangle=i\frac{\partial}{\partial t}\left\langle g\left|\frac{\partial g}{\partial \vec{q}}\right.\right\rangle$$
+$$\left|\frac{\partial g}{\partial \vec{q}}\right\rangle = (\omega(\vec{r}-\vec{q})-i\vec{p})|g\rangle$$
+$$\left\langle g\left|\frac{\partial g}{\partial\vec{q}}\right.\right\rangle = \omega\langle g|\vec{r}|g\rangle - \vec{\xi}\langle g|g\rangle$$
+$$\left\langle g\left|\frac{\partial g}{\partial\vec{q}}\right.\right\rangle = \left(\frac{\vec{\xi}^*+\vec{\xi}}{2} -\vec{\xi}\right)\langle g|g\rangle$$
+$$\left\langle g\left|\frac{\partial g}{\partial\vec{q}}\right.\right\rangle = \left(\frac{\vec{\xi}^*-\vec{\xi}}{2}\right)\langle g|g\rangle$$
+$$\left\langle g\left|\frac{\partial g}{\partial\vec{q}}\right.\right\rangle = \left(\frac{\vec{\xi}^*-\vec{\xi}}{2}\right)\langle g|g\rangle$$
+$$\left\langle g\left|\frac{\partial g}{\partial\vec{q}}\right.\right\rangle = -i\vec{p}\langle g|g\rangle$$
+$$\left\langle g\left|\frac{\partial\hat{H}}{\partial \vec{q}}\right|g\right\rangle=\frac{\partial}{\partial t} \left(\vec{p}\langle g|g\rangle\right)$$
+
+As norm is conserved, we will obtain:
+$$\dot{\vec{p}}=\frac{\left\langle g\left|\frac{\partial\hat{H}}{\partial \vec{q}}\right|g\right\rangle}{\langle g|g\rangle}$$
+
+For parameter $\vec{p}$:
+$$\left\langle g\left|\frac{\partial\hat{H}}{\partial \vec{p}}\right|g\right\rangle=i\frac{\partial}{\partial t}\left\langle g\left|\frac{\partial g}{\partial \vec{p}}\right.\right\rangle$$
+$$\left|\frac{\partial g}{\partial \vec{p}}\right\rangle = i(\vec{r}-\vec{q})|g\rangle$$
+$$\left\langle g\left|\frac{\partial g}{\partial \vec{p}}\right.\right\rangle = i\langle g|(\vec{r}-\vec{q})|g\rangle$$
+$$\left\langle g\left|\frac{\partial g}{\partial \vec{p}}\right.\right\rangle = i\langle g|\vec{r}|g\rangle-i\vec{q}\langle g|g\rangle$$
+$$\left\langle g\left|\frac{\partial g}{\partial \vec{p}}\right.\right\rangle = 0 $$
+$$\left\langle g\left|\frac{\partial\hat{H}}{\partial \vec{p}}\right|g\right\rangle=0$$
+
+Let us consider Hellmann--Feynman equation with repsect to time as $\varepsilon$:
+$$\left\langle g\left|\frac{\partial\hat{H}}{\partial t}\right|g\right\rangle=i\frac{\partial}{\partial t}\left\langle g\left|\frac{\partial g}{\partial t}\right.\right\rangle$$
+The left side is equal to zero, the right side:
+$$\left\langle g\left|\frac{\partial g}{\partial t}\right.\right\rangle = %
+  \left\langle g\left|\frac{\partial g}{\partial \vec{q}}\right.\right\rangle\dot{\vec{q}} + %
+  \left\langle g\left|\frac{\partial g}{\partial \vec{p}}\right.\right\rangle\dot{\vec{p}}=$$
+$$=-i\vec{p}\dot{\vec{q}}\langle g|g\rangle$$
+$$\frac{\partial\vec{p}\dot{\vec{q}}}{\partial t}\langle g|g\rangle = 0$$
+$$\frac{\partial \vec{p}\dot{\vec{q}}}{\partial t}=0$$
+

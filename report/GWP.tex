@@ -1,13 +1,13 @@
 For basis functions $|\phi_k\rangle$ we can choose frozen--width Gaussian wave packets (fwGWP):
-$$|g_k(\vec{\xi}_k,\vec{\eta}_k)\rangle=\text{exp}\left(\left[\sum_{\alpha=x,y,z}-\frac{1}{2}\omega r_{\alpha}^2+\xi_{k\alpha}r_{\alpha}+\eta_{k\alpha}\right]\right)$$
+$$|g_k(\vec{\xi}_k,\vec{\eta}_k)\rangle=\text{exp}\left(\left[\frac{1}{\hbar}\sum_{\alpha=x,y,z}-\frac{1}{2}\omega r_{\alpha}^2+\xi_{k\alpha}r_{\alpha}+\eta_{k\alpha}\right]\right)$$
 where $\omega$ --- time independent parameter, that can be set equal to width of zeroth eigenfunction of harmonic oscillator.
 We can transform parameters $(\vec{\xi}_k,\vec{\eta}_k)$ to $(\vec{q}_k,\vec{p}_k)$: 
 $$\xi_{k\alpha} = \omega q_{k\alpha}+i p_{k\alpha}$$
-$$\eta_{k\alpha} = \frac{1}{4}\left(\ln\left[{\frac{\omega}{\pi}}\right]-2\omega q_{k\alpha}^2\right)-iq_{k\alpha}p_{k\alpha}$$
+$$\eta_{k\alpha} = \frac{1}{4}\left(\hbar\ln\left[{\frac{\omega}{\pi}}\right]-2\omega q_{k\alpha}^2\right)-iq_{k\alpha}p_{k\alpha}$$
 where $\vec{q}_k$ --- center of gaussian wave packets, $\vec{p}_k$ --- momentum of wave packet. 
 We can assume, that wave packet, centered in phase space at $(\vec{q}_k,\vec{p}_k)$, represents particle at the same point of phase space.
 In this representation gaussian wave packet looks like:
-$$|g_k(\vec{q}_{k},\vec{p}_{k})\rangle = \left(\frac{\pi}{\omega}\right)^{3/4} \text{exp}\left(\sum_{\alpha=x,y,z}\left[-\frac{1}{2}\omega(r_{\alpha}-q_{k\alpha})^2+%
+$$|g_k(\vec{q}_{k},\vec{p}_{k})\rangle = \left(\frac{\pi}{\omega}\right)^{-3/4} \text{exp}\left(\frac{1}{\hbar}\sum_{\alpha=x,y,z}\left[-\frac{1}{2}\omega(r_{\alpha}-q_{k\alpha})^2+%
 									 ip_{k\alpha}(r_{\alpha}-q_{k\alpha})\right]\right)=g_{kx}g_{ky}g_{kz}$$
 
 The trick of GWP basis is as follows: we generate basis, using grid in phase space, 
@@ -17,7 +17,7 @@ But then we understand, that actually we do not need to propagate both $\xi_k$ a
 rather we can calculate only $\dot{\xi}_k$, switch back to $\dot{q}_k=\mathit{Re}(\dot{\xi}_k)/\omega$ 
 and $\dot{p}_k=\mathit{Im}(\dot{\xi}_k)$ and calculate $q_k(t+\Delta t)$ and $p_k(t+\Delta t)$.
 
-The matrix elements, that we need to use in equations of motions:
+The matrix elements, that we need to use in equations of motions ($\hbar=1$):
 $$\mathbbm{S}_{mk,\alpha}=\text{exp}\left(\frac{(\xi_{m\alpha}^*+\xi_{k\alpha})^2}{4\omega}+\eta_{m\alpha}^*+\eta_{k\alpha} \right)$$
 $$\mathbbm{S}_{mk} = \text{exp}\left(\sum_{\alpha} \frac{(\xi_{m\alpha}^*+\xi_{k\alpha})^2}{4\omega}+\eta_{m\alpha}^*+\eta_{k\alpha}\right)=%
   \mathbbm{S}_{mk,x}\mathbbm{S}_{mk,y}\mathbbm{S}_{mk,z}$$
