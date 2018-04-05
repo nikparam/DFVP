@@ -135,7 +135,7 @@ class GWP( ):
 					 ( self.omega + other.omega )**2 )
 
 	def psi( self, r ):
-		return np.exp( -self.omega * r.scalar( r ) + self.xi.scalar( r ) + self.eta.sum() )
+		return ( -self.omega * r * r + self.xi * r + self.eta ).exp()
 
 	def T( self, other ):
 		return  0.5 * self * other * ( 3.0 * other.omega - other.xi.scalar( other.xi ) ) + \
@@ -145,15 +145,15 @@ class GWP( ):
 	def V( self, other, NPTS ):
 		x, w = 	np.polynomial.legendre.leggauss( NPTS )
 		v = 0.0
-		lb = (self.q - 5.0 / self.omega).min( other.q - 5.0 / self.omega )
-		rb = (self.q + 5.0 / self.omega).max( other.q + 5.0 / self.omega )
-		shift_x = partial( lambda a, b, x: 0.5 * ( b - a ) * x + 0.5 * ( a + b ), \
-				   lb, rb )
+		lb = (self.q - 6.0 / self.omega).min( other.q - 6.0 / self.omega )
+		rb = (self.q + 6.0 / self.omega).max( other.q + 6.0 / self.omega )
 
-		x_corr = list( map( shift_x, x ) )
-		
+		shift = lambda x, a, b: 0.5 * ( b - a ) * x + 0.5 * ( a + b )
+
 		for i, j, k in product( range( NPTS ), range( NPTS ), range( NPTS ) ):
-			r = vec( x_corr[i], x_corr[j], x_corr[k] ) 
+			r = vec( shift( x[i], lb.x, rb.x ), \
+				 shift( x[j], lb.y, rb.y ), \
+				 shift( x[k], lb.z, rb.z ) ) 
 			v += w[i] * w[j] * w[k] * np.conj( self.psi( r ) ) * potential( r ) * other.psi( r )
 		return v
 
@@ -189,7 +189,7 @@ class basis():
 x = GWP( 1, 0, 0, 1 )
 y = GWP( 1, 1, 1, 1 )
 
-print( x.V( x, 48 ) )
+print( x.V( x, 50 ) )
 
 
 Nfunc = 1
