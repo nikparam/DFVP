@@ -38,7 +38,8 @@ SUBROUTINE mean_v( NPTS, q1, p1, omega1, q2, p2, omega2, V )
 			DOUBLE PRECISION :: x(npts), omega
 			DOUBLE COMPLEX :: wave_packet(npts), ksi, eta
 
-			wave_packet(:) = ZEXP( -0.5 * omega * x(:) * x(:) + ksi * x(:) + eta )
+			wave_packet(:) = ZEXP( -0.5 * omega * DOT_PRODUCT( x(:), x(:) ) + &
+							      DOT_PRODUCT( ksi(:),  x(:) ) + SUM( eta(:) ) )
 
 		END FUNCTION wave_packet
 

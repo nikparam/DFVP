@@ -145,8 +145,8 @@ class GWP( ):
 	def V( self, other, NPTS ):
 		x, w = 	np.polynomial.legendre.leggauss( NPTS )
 		v = 0.0
-		lb = (self.q - 6.0 / self.omega).min( other.q - 6.0 / self.omega )
-		rb = (self.q + 6.0 / self.omega).max( other.q + 6.0 / self.omega )
+		lb = (self.q - 7.0 / self.omega).min( other.q - 7.0 / self.omega )
+		rb = (self.q + 7.0 / self.omega).max( other.q + 7.0 / self.omega )
 
 		shift = lambda x, a, b: 0.5 * ( b - a ) * x + 0.5 * ( a + b )
 
@@ -154,7 +154,9 @@ class GWP( ):
 			r = vec( shift( x[i], lb.x, rb.x ), \
 				 shift( x[j], lb.y, rb.y ), \
 				 shift( x[k], lb.z, rb.z ) ) 
-			v += w[i] * w[j] * w[k] * np.conj( self.psi( r ) ) * potential( r ) * other.psi( r )
+			v += 0.125 * w[i] * w[j] * w[k] * \
+			     ( rb.x - lb.x ) * ( rb.y - lb.y ) * ( rb.z - lb.z ) * \
+			     np.conj( self.psi( r ) ) * potential( r ) * other.psi( r )
 		return v
 
 	def __str__( self ):
@@ -189,7 +191,8 @@ class basis():
 x = GWP( 1, 0, 0, 1 )
 y = GWP( 1, 1, 1, 1 )
 
-print( x.V( x, 50 ) )
+print( x.T(x) )
+print( x.V( x, 60 ) )
 
 
 Nfunc = 1
