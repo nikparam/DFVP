@@ -1,11 +1,20 @@
 import numpy as np
 from itertools import product
 from functools import partial
+from time import time
+from mean_v import mean_v 
+
+
 
 #________________________________________________________________
 # Potential energy
 #________________________________________________________________
 def potential( r ):
+	'''
+	potential energy surface 
+	for <g_i|V|g_j> calculation
+	'''
+
 	return 0.5 * ( r.x**2 + r.y**2 + r.z**2 )
 
 #________________________________________________________________
@@ -19,59 +28,135 @@ class vec():
 		self.z = z
 
 	def __add__ ( self, other ):
+		'''
+		  vec(a) + vec(b) = vec( a.x + b.x, a.y + b.y, a.z + b.z )
+		'''
+
 		if ( type(other) == type(self) ):
 			return vec( self.x + other.x, self.y + other.y, self.z + other.z )
 		else: return vec( self.x + other, self.y + other, self.z + other )
 
 	def __radd__( self, other ):
+		'''
+		  num + vec(a) = vec( num + a.x, num + a.y, num + a.z )
+		'''
+
 		return vec( other + self.x, other + self.y, other + self.z)
 
 	def __sub__ ( self, other ):
+		'''
+		if we subtract one vec from another:
+		  vec(a) - vec(b) = vec( a.x - b.x, a.y - b.y, a.z - b.z )
+		if we subtract number from vector:
+		  vec(a) - num = vec( a.x - num, a.y - num, a.z - num )
+		'''
+
 		if ( type(other) == type(self) ):
 			return vec( self.x - other.x, self.y - other.y, self.z - other.z )
 		else: return vec( self.x - other, self.y - other, self.z - other )
 
 	def __rsub__( self, other ):
+		'''
+		  num - vec(a) = vec( num - a.x, num - a.y, num - a.z )
+		'''
+
 		return vec( other - self.x, other - self.y, other - self.z)
 
 	def scalar( self, other ):
+		'''
+		dot product of two vectors
+		'''
+
 		return self.x * other.x + self.y * other.y + self.z * other.z 
 
 	def __mul__ ( self, other ):
+		'''
+		if we multiply two vectors:
+		 vec(a) * vec(b) = vec( a.x * b.x, a.y * b.y, a.z * b.z ) Hadamard multiplication
+		if we multiply vector by number:
+		 vec(a) * num = vec( a.x * num, a.y * num, a.z * num )
+		'''
+
 		if ( type(other) == type(self) ):
 			return vec( self.x * other.x, self.y * other.y, self.z * other.z )
 		else: return vec( other * self.x, other * self.y, other * self.z )
 
 	def __rmul__( self, other ):
+		'''
+		 vec(a) * num = vec( a.x * num, a.y * num, a.z * num )
+		'''
+
 		return vec( other * self.x, other * self.y, other * self.z )
 
 	def __pow__ ( self, other ):
+		'''
+		 vec(a) ** num = vec( a.x ** num, a.y ** num, a.z ** num )
+		'''
+		
 		return vec( self.x**other, self.y**other, self.z**other )
 
 	def __truediv__( self, other ):
+		'''
+		 vec(a) / num = vec( a.x / num, a.y / num, a.z / num )
+		'''
+		
 		return vec( self.x / other, self.y / other, self.z / other )
 
 	def call( self, i ):
+		'''
+		cheap way to call element of vec
+		'''
+
 		if i == 0: return self.x
 		if i == 1: return self.y
 		if i == 2: return self.z
 
 	def sum( self ):
+		'''
+		sum of elements
+		'''
+
 		return self.x + self.y + self.z	
 
 	def conj( self ):
+		'''
+		complex conjugate of vector
+		'''
+
 		return vec( np.conj( self.x ), np.conj( self.y ), np.conj( self.z ) )
 
 	def exp( self ):
-		return np.exp( self.x + self.y + self.z )  
+		'''
+		exp( vec(a) ) = exp( sum( vec ) )
+		'''
+
+		return np.exp( self.sum() )  
 
 	def min( self, other ):
+		'''
+		compare elements of two vecs, build vec, that consists of min coords
+		'''
+
 		return vec( min( self.x, other.x ), min( self.y, other.y ), min( self.z, other.z ) )
 
 	def max( self, other ):
+		'''
+		compare elements of two vecs, build vec, that consists of max coords
+		'''
+
 		return vec( max( self.x, other.x ), max( self.y, other.y ), max( self.z, other.z ) )
 
+	def list( self ):
+		'''
+		turn vec to list
+		'''
+		return [ self.x, self.y, self.z ]
+
 	def __str__( self ):
+		'''
+		print vec
+		'''
+
 		return "[ {0}, {1}, {2} ]".format( self.x, self.y, self.z )
 
 #________________________________________________________________
@@ -105,18 +190,38 @@ class GWP( ):
 		self.eta = 0.25 * ( np.log( self.omega / np.pi ) - 2 * self.omega * self.q**2 ) - 1j * self.q * self.p
 
 	def __mul__( self, other ):
+		'''
+		overlap <g_i|g_j>
+		'''
+
 		return np.conj( self.D ) * other.D * ( np.pi / self.omega )**( 1.5 ) * \
 		       ( 0.5 * ( self.xi.conj() + other.xi )**2 / \
 			       ( self.omega + other.omega ) + \
 			         self.eta.conj() + other.eta ).exp()
 
 	def __rmul__ ( self, other ):
+		'''
+		create GWP with coeff D_1 = num * D_0
+		'''
+
 		return GWP( other * self.D, self.q, self.p, self.omega )
 
 	def der1( self, other ):
+		'''
+		      d  g_j 
+		<g_i| ------ >
+		      d xi_j
+		'''
+
 		return   self * other * ( self.xi.conj() + other.xi ) / ( self.omega + other.omega )
 
 	def der11( self, other ):
+		'''
+		  d  g_i | d  g_j 
+		< ------ | ------ >
+		  d xi_i | d xi_j
+		'''
+
 		s = np.zeros( (3,3), dtype = complex )
 		N = self * other
 		for i in range(3):
@@ -130,19 +235,40 @@ class GWP( ):
 		
 
 	def der2( self, other ):
+		'''
+		      d^2  g_j 
+		<g_i| -------- >
+		      d xi_j^2
+		'''
+
 		return  self * other * ( 1.0 / ( self.omega + other.omega ) + \
 					 ( self.xi.conj() + other.xi )**2 / \
 					 ( self.omega + other.omega )**2 )
 
 	def psi( self, r ):
+		'''
+		psi = exp( -0.5 * omega * r^2 + xi * r + eta )
+		'''
+
 		return ( -0.5 * self.omega * r * r + self.xi * r + self.eta ).exp()
 
 	def T( self, other ):
+		'''
+			                     d^2    d^2    d^2
+		<g_i|T|g_j> = -0.5 * < g_i | ---- + ---- + ---- | g_j >
+			                     dx^2   dy^2   dz^2
+		'''
+
 		return  0.5 * self * other * ( 3.0 * other.omega - other.xi.scalar( other.xi ) ) + \
 			other.omega * other.xi.scalar( self.der1( other ) ) - \
 			0.5 * self.omega**2 * self.der2( other ).sum()
 
+
 	def V( self, other, NPTS ):
+		'''
+		<g_i|V|g_j> calculated with Gauss Legendre quadratures
+		'''
+
 		x, w = 	np.polynomial.legendre.leggauss( NPTS )
 		v = 0.0
 		lb = (self.q - 6.0 / self.omega).min( other.q - 6.0 / self.omega )
@@ -159,7 +285,24 @@ class GWP( ):
 			     np.conj( self.psi( r ) ) * potential( r ) * other.psi( r )
 		return v
 
+	def H( self, other, NPTS ):
+		'''
+		<g_i|H|g_j> = <g_i|T|g_j> + <g_i|V|g_j>
+		<g_i|V|g_j> is calculated with Fortran90 subroutine
+		with Gauss Legendre quadratures
+		see file mean_v.f90
+		'''
+
+		t = self.T( other )
+		v = mean_v( NPTS, self.xi.list(), self.eta.list(), self.omega, \
+				     other.xi.list(), other.eta.list(), other.omega )
+		return t + v
+
 	def __str__( self ):
+		'''
+		print GWP
+		'''
+
 		return  "D = {0:g}".format( self.D ) + ", omega = {0:g}".format( self.omega ) + '\n' + \
 			"q = " + str( self.q ) + '\n' + \
 			"p = " +  str( self.p )
@@ -191,22 +334,11 @@ class basis():
 x = GWP( 1, 0, 0, 1 )
 y = GWP( 1, 1, 1, 1 )
 
-print( x.T(x) )
-print( x.V( x, 50 ) )
+start = time()
+print( x.H( x, 50 ) )
+print( "fortran CPU time = {0:g}".format( time() - start ) )
 
-
-Nfunc = 1
-Ndim = 1
-omega = 1
-D = [ 1.0 ]
-q = [ 1.0 ]
-p = [ 0.0 ]
-
-S = np.zeros( ( Nfunc, Nfunc ) )
-S_alpha0 = np.zeros( ( Ndim * Nfunc, Nfunc ) )
-S_0alpha = np.zeros( ( Nfunc, Ndim * Nfunc ) )
-S_alphabeta = np.zeros( ( Ndim * Nfunc, Ndim * Nfunc ) )
-H = np.zeros( ( Nfunc, Nfunc ) )
-H_alpha0 = np.zeros( ( Ndim * Nfunc, Nfunc ) )
-
+start = time()
+print( x.T( x ) + x.V( x, 50 ) )
+print( "python CPU time = {0:g}".format( time() - start ) )
 

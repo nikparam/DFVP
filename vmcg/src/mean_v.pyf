@@ -1,0 +1,178 @@
+!    -*- f90 -*-
+! Note: the context of this file is case sensitive.
+
+python module mean_v ! in 
+    interface  ! in :mean_v
+        subroutine mean_v(npts,xi1,eta1,omega1,xi2,eta2,omega2,v) ! in :mean_v:src/mean_v.f90
+            integer intent(in) :: npts
+            double complex dimension(3),intent(in) :: xi1
+            double complex dimension(3),intent(in) :: eta1
+            double precision intent(in) :: omega1
+            double complex dimension(3),intent(in) :: xi2
+            double complex dimension(3),intent(in) :: eta2
+            double precision intent(in) :: omega2
+            double complex intent(out) :: v
+        end subroutine mean_v
+        subroutine imtqlx(n,d,e,z) ! in :mean_v:src/legendre_polynomial.f90
+            integer(kind=4), optional,check(len(d)>=n),depend(d) :: n=len(d)
+            real(kind=8) dimension(n) :: d
+            real(kind=8) dimension(n),depend(n) :: e
+            real(kind=8) dimension(n),depend(n) :: z
+        end subroutine imtqlx
+        subroutine p_exponential_product(p,b,table) ! in :mean_v:src/legendre_polynomial.f90
+            integer(kind=4), optional,check((shape(table,0)-1)==p),depend(table) :: p=(shape(table,0)-1)
+            real(kind=8) :: b
+            real(kind=8) dimension(p + 1,p + 1) :: table
+        end subroutine p_exponential_product
+        subroutine p_integral(n,value) ! in :mean_v:src/legendre_polynomial.f90
+            integer(kind=4) :: n
+            real(kind=8) :: value
+        end subroutine p_integral
+        subroutine p_polynomial_coefficients(n,c) ! in :mean_v:src/legendre_polynomial.f90
+            integer(kind=4), optional,check((shape(c,0)-1)==n),depend(c) :: n=(shape(c,0)-1)
+            real(kind=8) dimension(n + 1,n + 1) :: c
+        end subroutine p_polynomial_coefficients
+        subroutine p_polynomial_prime(m,n,x,vp) ! in :mean_v:src/legendre_polynomial.f90
+            integer(kind=4), optional,check(len(x)>=m),depend(x) :: m=len(x)
+            integer(kind=4), optional,check((shape(vp,1)-1)==n),depend(vp) :: n=(shape(vp,1)-1)
+            real(kind=8) dimension(m) :: x
+            real(kind=8) dimension(m,n + 1),depend(m) :: vp
+        end subroutine p_polynomial_prime
+        subroutine p_polynomial_prime2(m,n,x,vpp) ! in :mean_v:src/legendre_polynomial.f90
+            integer(kind=4), optional,check(len(x)>=m),depend(x) :: m=len(x)
+            integer(kind=4), optional,check((shape(vpp,1)-1)==n),depend(vpp) :: n=(shape(vpp,1)-1)
+            real(kind=8) dimension(m) :: x
+            real(kind=8) dimension(m,n + 1),depend(m) :: vpp
+        end subroutine p_polynomial_prime2
+        subroutine p_polynomial_value(m,n,x,v) ! in :mean_v:src/legendre_polynomial.f90
+            integer(kind=4), optional,check(len(x)>=m),depend(x) :: m=len(x)
+            integer(kind=4), optional,check((shape(v,1)-1)==n),depend(v) :: n=(shape(v,1)-1)
+            real(kind=8) dimension(m) :: x
+            real(kind=8) dimension(m,n + 1),depend(m) :: v
+        end subroutine p_polynomial_value
+        subroutine p_polynomial_values(n_data,n,x,fx) ! in :mean_v:src/legendre_polynomial.f90
+            integer(kind=4) :: n_data
+            integer(kind=4) :: n
+            real(kind=8) :: x
+            real(kind=8) :: fx
+        end subroutine p_polynomial_values
+        subroutine p_polynomial_zeros(nt,t) ! in :mean_v:src/legendre_polynomial.f90
+            integer(kind=4), optional,check(len(t)>=nt),depend(t) :: nt=len(t)
+            real(kind=8) dimension(nt) :: t
+        end subroutine p_polynomial_zeros
+        subroutine p_power_product(p,e,table) ! in :mean_v:src/legendre_polynomial.f90
+            integer(kind=4), optional,check((shape(table,0)-1)==p),depend(table) :: p=(shape(table,0)-1)
+            integer(kind=4) :: e
+            real(kind=8) dimension(p + 1,p + 1) :: table
+        end subroutine p_power_product
+        subroutine p_quadrature_rule(nt,t,wts) ! in :mean_v:src/legendre_polynomial.f90
+            integer(kind=4), optional,check(len(t)>=nt),depend(t) :: nt=len(t)
+            real(kind=8) dimension(nt) :: t
+            real(kind=8) dimension(nt),depend(nt) :: wts
+        end subroutine p_quadrature_rule
+        subroutine pm_polynomial_value(mm,n,m,x,cx) ! in :mean_v:src/legendre_polynomial.f90
+            integer(kind=4), optional,check(len(x)>=mm),depend(x) :: mm=len(x)
+            integer(kind=4), optional,check((shape(cx,1)-1)==n),depend(cx) :: n=(shape(cx,1)-1)
+            integer(kind=4) :: m
+            real(kind=8) dimension(mm) :: x
+            real(kind=8) dimension(mm,n + 1),depend(mm) :: cx
+        end subroutine pm_polynomial_value
+        subroutine pm_polynomial_values(n_data,n,m,x,fx) ! in :mean_v:src/legendre_polynomial.f90
+            integer(kind=4) :: n_data
+            integer(kind=4) :: n
+            integer(kind=4) :: m
+            real(kind=8) :: x
+            real(kind=8) :: fx
+        end subroutine pm_polynomial_values
+        subroutine pmn_polynomial_value(mm,n,m,x,cx) ! in :mean_v:src/legendre_polynomial.f90
+            integer(kind=4), optional,check(len(x)>=mm),depend(x) :: mm=len(x)
+            integer(kind=4), optional,check((shape(cx,1)-1)==n),depend(cx) :: n=(shape(cx,1)-1)
+            integer(kind=4) :: m
+            real(kind=8) dimension(mm) :: x
+            real(kind=8) dimension(mm,n + 1),depend(mm) :: cx
+        end subroutine pmn_polynomial_value
+        subroutine pmn_polynomial_values(n_data,n,m,x,fx) ! in :mean_v:src/legendre_polynomial.f90
+            integer(kind=4) :: n_data
+            integer(kind=4) :: n
+            integer(kind=4) :: m
+            real(kind=8) :: x
+            real(kind=8) :: fx
+        end subroutine pmn_polynomial_values
+        subroutine pmns_polynomial_value(mm,n,m,x,cx) ! in :mean_v:src/legendre_polynomial.f90
+            integer(kind=4), optional,check(len(x)>=mm),depend(x) :: mm=len(x)
+            integer(kind=4), optional,check((shape(cx,1)-1)==n),depend(cx) :: n=(shape(cx,1)-1)
+            integer(kind=4) :: m
+            real(kind=8) dimension(mm) :: x
+            real(kind=8) dimension(mm,n + 1),depend(mm) :: cx
+        end subroutine pmns_polynomial_value
+        subroutine pmns_polynomial_values(n_data,n,m,x,fx) ! in :mean_v:src/legendre_polynomial.f90
+            integer(kind=4) :: n_data
+            integer(kind=4) :: n
+            integer(kind=4) :: m
+            real(kind=8) :: x
+            real(kind=8) :: fx
+        end subroutine pmns_polynomial_values
+        subroutine pn_pair_product(p,table) ! in :mean_v:src/legendre_polynomial.f90
+            integer(kind=4), optional,check((shape(table,0)-1)==p),depend(table) :: p=(shape(table,0)-1)
+            real(kind=8) dimension(p + 1,p + 1) :: table
+        end subroutine pn_pair_product
+        subroutine pn_polynomial_coefficients(n,c) ! in :mean_v:src/legendre_polynomial.f90
+            integer(kind=4), optional,check((shape(c,0)-1)==n),depend(c) :: n=(shape(c,0)-1)
+            real(kind=8) dimension(n + 1,n + 1) :: c
+        end subroutine pn_polynomial_coefficients
+        subroutine pn_polynomial_value(m,n,x,v) ! in :mean_v:src/legendre_polynomial.f90
+            integer(kind=4), optional,check(len(x)>=m),depend(x) :: m=len(x)
+            integer(kind=4), optional,check((shape(v,1)-1)==n),depend(v) :: n=(shape(v,1)-1)
+            real(kind=8) dimension(m) :: x
+            real(kind=8) dimension(m,n + 1),depend(m) :: v
+        end subroutine pn_polynomial_value
+        subroutine pn_polynomial_values(n_data,n,x,fx) ! in :mean_v:src/legendre_polynomial.f90
+            integer(kind=4) :: n_data
+            integer(kind=4) :: n
+            real(kind=8) :: x
+            real(kind=8) :: fx
+        end subroutine pn_polynomial_values
+        function r8_factorial(n) ! in :mean_v:src/legendre_polynomial.f90
+            integer(kind=4) :: n
+            real(kind=8) :: r8_factorial
+        end function r8_factorial
+        subroutine r8mat_print(m,n,a,title) ! in :mean_v:src/legendre_polynomial.f90
+            integer(kind=4), optional,check(shape(a,0)==m),depend(a) :: m=shape(a,0)
+            integer(kind=4), optional,check(shape(a,1)==n),depend(a) :: n=shape(a,1)
+            real(kind=8) dimension(m,n) :: a
+            character*(*) :: title
+        end subroutine r8mat_print
+        subroutine r8mat_print_some(m,n,a,ilo,jlo,ihi,jhi,title) ! in :mean_v:src/legendre_polynomial.f90
+            integer(kind=4), optional,check(shape(a,0)==m),depend(a) :: m=shape(a,0)
+            integer(kind=4), optional,check(shape(a,1)==n),depend(a) :: n=shape(a,1)
+            real(kind=8) dimension(m,n) :: a
+            integer(kind=4) :: ilo
+            integer(kind=4) :: jlo
+            integer(kind=4) :: ihi
+            integer(kind=4) :: jhi
+            character*(*) :: title
+        end subroutine r8mat_print_some
+        subroutine r8vec_linspace(n,a,b,x) ! in :mean_v:src/legendre_polynomial.f90
+            integer(kind=4), optional,check(len(x)>=n),depend(x) :: n=len(x)
+            real(kind=8) :: a
+            real(kind=8) :: b
+            real(kind=8) dimension(n) :: x
+        end subroutine r8vec_linspace
+        subroutine r8vec_print(n,a,title) ! in :mean_v:src/legendre_polynomial.f90
+            integer(kind=4), optional,check(len(a)>=n),depend(a) :: n=len(a)
+            real(kind=8) dimension(n) :: a
+            character*(*) :: title
+        end subroutine r8vec_print
+        subroutine r8vec2_print(n,a1,a2,title) ! in :mean_v:src/legendre_polynomial.f90
+            integer(kind=4), optional,check(len(a1)>=n),depend(a1) :: n=len(a1)
+            real(kind=8) dimension(n) :: a1
+            real(kind=8) dimension(n),depend(n) :: a2
+            character*(*) :: title
+        end subroutine r8vec2_print
+        subroutine timestamp ! in :mean_v:src/legendre_polynomial.f90
+        end subroutine timestamp
+    end interface 
+end python module mean_v
+
+! This file was auto-generated with f2py (version:2).
+! See http://cens.ioc.ee/projects/f2py2e/

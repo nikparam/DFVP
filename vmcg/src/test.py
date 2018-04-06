@@ -33,11 +33,7 @@ class test( ):
 
 
 
-v1 = vec( 1, 2, 3 )
-v2 = vec( 1, 2, 3 )
-print( type(v1) == type(v2) )
 
-x = [ [ 1, 2, 3 ], [4, 5, 6] ]
-b = test( x )
-for _ in b.m:
-	print( _ )
+
+
+
