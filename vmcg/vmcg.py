@@ -135,7 +135,7 @@ class GWP( ):
 					 ( self.omega + other.omega )**2 )
 
 	def psi( self, r ):
-		return ( -self.omega * r * r + self.xi * r + self.eta ).exp()
+		return ( -0.5 * self.omega * r * r + self.xi * r + self.eta ).exp()
 
 	def T( self, other ):
 		return  0.5 * self * other * ( 3.0 * other.omega - other.xi.scalar( other.xi ) ) + \
@@ -145,8 +145,8 @@ class GWP( ):
 	def V( self, other, NPTS ):
 		x, w = 	np.polynomial.legendre.leggauss( NPTS )
 		v = 0.0
-		lb = (self.q - 7.0 / self.omega).min( other.q - 7.0 / self.omega )
-		rb = (self.q + 7.0 / self.omega).max( other.q + 7.0 / self.omega )
+		lb = (self.q - 6.0 / self.omega).min( other.q - 6.0 / self.omega )
+		rb = (self.q + 6.0 / self.omega).max( other.q + 6.0 / self.omega )
 
 		shift = lambda x, a, b: 0.5 * ( b - a ) * x + 0.5 * ( a + b )
 
@@ -192,7 +192,7 @@ x = GWP( 1, 0, 0, 1 )
 y = GWP( 1, 1, 1, 1 )
 
 print( x.T(x) )
-print( x.V( x, 60 ) )
+print( x.V( x, 50 ) )
 
 
 Nfunc = 1
