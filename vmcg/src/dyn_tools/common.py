@@ -7,7 +7,7 @@ def compose( *func ):
 	return lambda *args, **kws: reduce( lambda a, x: x(a), rest, init(*args, **kws) )
 
 lmap = compose( list, map )
-mtrx = partial( np.zeros, dtype = complex ) 
+mtrx = partial( np.zeros, dtype = complex )
 hermite = compose( np.conj, np.transpose )
 
 def matrix( func ):

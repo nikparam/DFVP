@@ -14,8 +14,8 @@ class basis():
 			self.basis = []
 			self.Ndim = Ndim
 	
-			a = 0.2
-			b = 0.2
+			a = 1.
+			b = 1.
 	
 			q_max = vec( np.sqrt( 2 * E / omega ) )
 			q = vec( [ 0.0 ] * Ndim )
@@ -26,15 +26,15 @@ class basis():
 			while ( p <= p_max ):
 				if  p == vec( [ 0.0 ] * Ndim ) : pass
 				else:
-					self.basis.append( gwp( 1., vec( [ 0.0 ] * Ndim ), p, vec( [ omega ] * Ndim ) ) )
 					self.basis.append( gwp( 1., vec( [ 0.0 ] * Ndim ), -p, vec( [ omega ] * Ndim ) ) )
+					self.basis.append( gwp( 1., vec( [ 0.0 ] * Ndim ), p, vec( [ omega ] * Ndim ) ) )
 				p += b
 	
 			while ( q <= q_max ):
 				if q == vec( [ 0.0 ] * Ndim ) : pass
 				else:
-					self.basis.append( gwp( 1., q, vec( [ 0.0 ] * Ndim ), vec( [ omega ] * Ndim ) ) )
 					self.basis.append( gwp( 1., -q, vec( [ 0.0 ] * Ndim ), vec( [ omega ] * Ndim ) ) )
+					self.basis.append( gwp( 1., q, vec( [ 0.0 ] * Ndim ), vec( [ omega ] * Ndim ) ) )
 				q += a
 		else:
 			self.basis = basis
@@ -91,7 +91,6 @@ class basis():
 
 	def xmatrix( self ):
 		X = self.s11matrix() - np.dot( self.s1matrix(), np.dot( sinvert( self.smatrix() ), np.transpose( self.s1matrix() ) ) )
-#		print( print_matrix(X) )
 		rho = self.rhomatrix()
 		for i, j in product( range( self.size() ), range( self.size() ) ):
 			for k, m in product( range( self.Ndim ), range( self.Ndim ) ):
@@ -101,7 +100,6 @@ class basis():
 	
 	def ymatrix( self ):
 		tmp = self.h1matrix() - np.dot( self.s1matrix(), np.dot( sinvert( self.smatrix() ), self.hmatrix() ) )
-#		print( print_matrix(tmp) )
 		Y = mtrx( self.size() * self.Ndim )
 		rho = self.rhomatrix()
 		for i, j in product( range( self.size() ), range( self.Ndim ) ):
@@ -112,6 +110,13 @@ class basis():
 	def lambda_dot( self ):
 		return -1j * np.dot( sinvert( self.xmatrix() ),  self.ymatrix() )
 
+	def qp_dot( self ):
+		ldot = self.lambda_dot()
+		qdot = lmap( lambda i, j: ldot[ i * self.Ndim + j ].real / self.basis[i].omega.call(j), range( self.size() ), range( self.Ndim ) )
+		pdot = lmap( lambda i: ldot[ i ].imag, range( self.size() * self.Ndim ) )
+		qdot.extend( pdot )
+		return qdot
+
 	def taumatrix( self ):
 		tau = mtrx( ( self.size(), self.size() ) )
 		s1 = self.s1matrix()
@@ -121,9 +126,21 @@ class basis():
 				tau[i][j] += s1[ i ][ j * self.Ndim + k ] * ldot[ j * self.Ndim + k ]
 		return tau
 
-	def c_dot( self ):
+	def vec_c( self ):
 		c = lmap( lambda i: self.basis[i].D, range( self.size() ) )
-		return -1j * np.dot( np.dot( sinvert( self.smatrix() ), ( self.hmatrix() - 1j * self.taumatrix() ) ), c )
+		return c
+
+	def c_dot( self ):
+		return -1j * np.dot( np.dot( sinvert( self.smatrix() ), ( self.hmatrix() - 1j * self.taumatrix() ) ), self.vec_c() )
+
+	def dynamics( self, delta_t ):
+		c_dot = self.c_dot()
+		qp_dot = self.qp_dot()
+		for i in range( self.size() ):
+			self.basis[ i ].D += delta_t * c_dot[ i ]
+			for j in range( self.Ndim ):
+				self.basis[ i ].q.coords[j] += delta_t * qp_dot[ i * self.Ndim + j ]
+				self.basis[ i ].p.coords[j] += delta_t * qp_dot[ int( 0.5 * len( qp_dot ) )  + i * self.Ndim + j ]
 
 	def get_states( self ):
 		x, v = lowdin( self.smatrix(), self.hmatrix() )
