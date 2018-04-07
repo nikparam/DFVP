@@ -11,7 +11,7 @@ class vec():
 			self.coords = coords.coords[:]
 		elif type( coords ) != type( [] ):
 			self.coords = [ coords ]
-		elif coords == []:
+		elif not coords:
 			self.coords = [ 0.0 ]
 		else:
 			self.coords = coords[:]

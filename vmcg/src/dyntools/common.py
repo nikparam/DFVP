@@ -23,8 +23,11 @@ def matrix( func ):
 def print_matrix( matrix ):
 	string = ''
 	for row in matrix:
-		for _ in row:
-			string += '({:.4f})\t'.format( _ )
-		string += '\n'
+		if type( row ) == type( matrix ):
+			for _ in row:
+				string += '({:.4f})\t'.format( _ )
+			string += '\n'
+		else:
+			string += '({:.4f})\n'.format( row )
 	return string
 

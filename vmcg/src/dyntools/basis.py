@@ -8,33 +8,37 @@ from eig_tools.eig_tools import cholesky, svd, lowdin, sinvert
 #________________________________________________________________
 
 class basis():
-	def __init__( self, E, omega = 1.0, Ndim = 1 ):
+	def __init__( self, E, basis = None, omega = 1.0, Ndim = 1 ):
 
-		self.basis = []
-		self.Ndim = Ndim
-
-		a = 0.2
-		b = 0.2
-
-		q_max = vec( np.sqrt( 2 * E / omega ) )
-		q = vec( [ 0.0 ] * Ndim )
-
-		p_max = vec( np.sqrt( 2 * E ) )
-		p = vec( [ 0.0 ] * Ndim )
-
-		while ( p <= p_max ):
-			if  p == vec( [ 0.0 ] * Ndim ) : pass
-			else:
-				self.basis.append( gwp( 1., vec( [ 0.0 ] * Ndim ), p, vec( [ omega ] * Ndim ) ) )
-				self.basis.append( gwp( 1., vec( [ 0.0 ] * Ndim ), -p, vec( [ omega ] * Ndim ) ) )
-			p += b
-
-		while ( q <= q_max ):
-			if q == vec( [ 0.0 ] * Ndim ) : pass
-			else:
-				self.basis.append( gwp( 1., q, vec( [ 0.0 ] * Ndim ), vec( [ omega ] * Ndim ) ) )
-				self.basis.append( gwp( 1., -q, vec( [ 0.0 ] * Ndim ), vec( [ omega ] * Ndim ) ) )
-			q += a
+		if basis is None:
+			self.basis = []
+			self.Ndim = Ndim
+	
+			a = 0.2
+			b = 0.2
+	
+			q_max = vec( np.sqrt( 2 * E / omega ) )
+			q = vec( [ 0.0 ] * Ndim )
+	
+			p_max = vec( np.sqrt( 2 * E ) )
+			p = vec( [ 0.0 ] * Ndim )
+	
+			while ( p <= p_max ):
+				if  p == vec( [ 0.0 ] * Ndim ) : pass
+				else:
+					self.basis.append( gwp( 1., vec( [ 0.0 ] * Ndim ), p, vec( [ omega ] * Ndim ) ) )
+					self.basis.append( gwp( 1., vec( [ 0.0 ] * Ndim ), -p, vec( [ omega ] * Ndim ) ) )
+				p += b
+	
+			while ( q <= q_max ):
+				if q == vec( [ 0.0 ] * Ndim ) : pass
+				else:
+					self.basis.append( gwp( 1., q, vec( [ 0.0 ] * Ndim ), vec( [ omega ] * Ndim ) ) )
+					self.basis.append( gwp( 1., -q, vec( [ 0.0 ] * Ndim ), vec( [ omega ] * Ndim ) ) )
+				q += a
+		else:
+			self.basis = basis
+			self.Ndim = Ndim
 
 	def size( self ):
 		return len( self.basis )
@@ -67,7 +71,7 @@ class basis():
 		S10 = mtrx( ( self.Ndim * self.size(), self.size() ) )
 		for i, j in product( range( 0, self.size() * self.Ndim, self.Ndim ), range( self.size() ) ):
 			for k in range( self.Ndim ):
-				S10[ i + k ][ j ] = self.basis[ i ].der1( self.basis[ j ] ).call(k)
+				S10[ i + k ][ j ] = ( self.basis[ i ].der1( self.basis[ j ] ) ).call(k)
 		return S10
 
 	def  s11matrix( self ):
@@ -78,19 +82,48 @@ class basis():
 
 		return S11
 
+	def h1matrix( self ):
+		H10 = mtrx( ( self.Ndim * self.size(), self.size() ) )
+		for i, j in product( range( 0, self.size() * self.Ndim, self.Ndim ), range( self.size() ) ):
+			for k in range( self.Ndim ):
+				H10[ i + k ][ j ] = ( self.basis[ i ].H1( self.basis[ j ] ) ).call(k)
+		return H10
+
 	def xmatrix( self ):
 		X = self.s11matrix() - np.dot( self.s1matrix(), np.dot( sinvert( self.smatrix() ), np.transpose( self.s1matrix() ) ) )
-#		X = self.s11matrix() - np.dot( self.s1matrix(), np.dot( sinvert( self.smatrix() ), hermite( self.s1matrix() ) ) )
+#		print( print_matrix(X) )
 		rho = self.rhomatrix()
 		for i, j in product( range( self.size() ), range( self.size() ) ):
 			for k, m in product( range( self.Ndim ), range( self.Ndim ) ):
 				X[ i * self.Ndim + k ][ j * self.Ndim + m ] = \
-				rho[ i ][ j ] * X[ i * self.Ndim + k ][ j * self.Ndim + m ]
+					rho[ i ][ j ] * X[ i * self.Ndim + k ][ j * self.Ndim + m ]
 		return X
 	
 	def ymatrix( self ):
-		Y = mtrx( ( self.size() * self.Ndim, self.Ndim ) )
-		
+		tmp = self.h1matrix() - np.dot( self.s1matrix(), np.dot( sinvert( self.smatrix() ), self.hmatrix() ) )
+#		print( print_matrix(tmp) )
+		Y = mtrx( self.size() * self.Ndim )
+		rho = self.rhomatrix()
+		for i, j in product( range( self.size() ), range( self.Ndim ) ):
+			for k in range( self.size() ):
+				Y[ i * self.Ndim + j ] += rho[ i ][ k ] * tmp[ i * self.Ndim + j ][ k ]
+		return Y
+
+	def lambda_dot( self ):
+		return -1j * np.dot( sinvert( self.xmatrix() ),  self.ymatrix() )
+
+	def taumatrix( self ):
+		tau = mtrx( ( self.size(), self.size() ) )
+		s1 = self.s1matrix()
+		ldot = self.lambda_dot()
+		for i, j in product( range( self.size() ), range( self.size() ) ):
+			for k in range( self.Ndim ):
+				tau[i][j] += s1[ i ][ j * self.Ndim + k ] * ldot[ j * self.Ndim + k ]
+		return tau
+
+	def c_dot( self ):
+		c = lmap( lambda i: self.basis[i].D, range( self.size() ) )
+		return -1j * np.dot( np.dot( sinvert( self.smatrix() ), ( self.hmatrix() - 1j * self.taumatrix() ) ), c )
 
 	def get_states( self ):
 		x, v = lowdin( self.smatrix(), self.hmatrix() )
