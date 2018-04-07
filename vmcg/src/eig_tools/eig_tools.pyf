@@ -1,0 +1,36 @@
+!    -*- f90 -*-
+! Note: the context of this file is case sensitive.
+
+python module eig_tools ! in 
+    interface  ! in :eig_tools
+        subroutine cholesky(numg,s,h,eigen_states,eigen_vectors) ! in :eig_tools:eig_tools/cholesky.f90
+            integer, optional,intent(in),check(shape(s,0)==numg),depend(s) :: numg=shape(s,0)
+            double complex dimension(numg,numg),intent(in) :: s
+            double complex dimension(numg,numg),intent(in),depend(numg,numg) :: h
+            double complex dimension(numg),intent(out),depend(numg) :: eigen_states
+            double complex dimension(numg,numg),intent(out),depend(numg,numg) :: eigen_vectors
+        end subroutine cholesky
+        subroutine svd(numg,s,h,eigen_states,eigen_vectors) ! in :eig_tools:eig_tools/svd.f90
+            integer, optional,intent(in),check(shape(s,0)==numg),depend(s) :: numg=shape(s,0)
+            double complex dimension(numg,numg),intent(in) :: s
+            double complex dimension(numg,numg),intent(in),depend(numg,numg) :: h
+            double complex dimension(numg),intent(out),depend(numg) :: eigen_states
+            double complex dimension(numg,numg),intent(out),depend(numg,numg) :: eigen_vectors
+        end subroutine svd
+        subroutine lowdin(numg,s,h,eigen_states,eigen_vectors) ! in :eig_tools:eig_tools/lowdin.f90
+            integer, optional,check(shape(s,0)==numg),depend(s) :: numg=shape(s,0)
+            double complex dimension(numg,numg),intent(in) :: s
+            double complex dimension(numg,numg),intent(in),depend(numg,numg) :: h
+            double complex dimension(numg),intent(out),depend(numg) :: eigen_states
+            double complex dimension(numg,numg),intent(out),depend(numg,numg) :: eigen_vectors
+        end subroutine lowdin
+        subroutine sinvert(numg,s,si) ! in :eig_tools:eig_tools/sinvert.f90
+            integer, optional,intent(in),check(shape(s,0)==numg),depend(s) :: numg=shape(s,0)
+            double complex dimension(numg,numg),intent(in) :: s
+            double complex dimension(numg,numg),intent(out),depend(numg,numg) :: si
+        end subroutine sinvert
+    end interface 
+end python module eig_tools
+
+! This file was auto-generated with f2py (version:2).
+! See http://cens.ioc.ee/projects/f2py2e/
