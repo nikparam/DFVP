@@ -106,7 +106,7 @@ $$\delta\lambda_{mj}\sum_{k=1}^NC_m^*\left\langle\frac{\partial\phi_m}{\partial\
 \end{frame}
 
 \begin{frame}{\mytitle{Equation of motions}}
-$$\dot{\vec{C}}_n = -\frac{i}{\hbar}\sum_{k,n=1}^N\mathbbm{S}^{-1}_{nm}\left(\mathbbm{H}_{mk}-i\hbar\boldsymbol{\tau}_{mk}\right)\vec{C}_k\text{ --- vector of coeficients}$$
+$$\dot{\vec{C}}_n = -\frac{i}{\hbar}\sum_{k,m=1}^N\mathbbm{S}^{-1}_{nm}\left(\mathbbm{H}_{mk}-i\hbar\boldsymbol{\tau}_{mk}\right)\vec{C}_k\text{ --- vector of coeficients}$$
 $$\dot{\lambda}_{kl} = -\frac{i}{\hbar}\sum_{m=1}^N\sum_{j=1}^M\left(\mathbbm{X}^{-1}\right)_{km}^{lj}\mathbbm{Y}_m^j\text{ --- matrix of parameters}$$
 $$\mathbbm{S}_{mk}=\myel{\phi_m}{\phi_k},\ \mathbbm{H}_{mk} = \mymean{\phi_m}{\hat{H}}{\phi_k},\ %
   \boldsymbol{\tau}_{mk} = \sum_{l=1}^M\myelr{\phi_m}{\frac{\partial\phi_k}{\partial\lambda_{kl}}}\dot{\lambda}_{kl}$$
@@ -142,7 +142,7 @@ $$\dot{\vec{C}}^{\dagger}\mathbbm{S}\vec{C} + \vec{C}^{\dagger}\mathbbm{S}\dot{\
 $$\frac{\partial}{\partial t}\frac{\mymean{\psi}{\hat{H}}{\psi}}{\myel{\Psi}{\Psi}} = %
   \frac{1}{\myel{\Psi}{\Psi}}\frac{\partial}{\partial t}\sum_{k,m=1}^NC_k^*C_m\mymean{\phi_k}{\hat{H}}{\phi_m} = $$
 $$=\frac{1}{\myel{\Psi}{\Psi}}\frac{\partial}{\partial t}\vec{C}^{\dagger}\mathbbm{H}\vec{C}=%
-  \frac{\dot{\vec{C}}^{\dagger}\mathbbm{H}\vec{C}+\vec{C}^{\dagger}\mathbbm{H}\dot{\vec{C}}}{\myel{\Psi}{\Psi}}$$
+  \frac{\dot{\vec{C}}^{\dagger}\mathbbm{H}\vec{C}+\vec{C}^{\dagger}\mathbbm{H}\dot{\vec{C}} + \vec{C}^{\dagger}\dot{\mathbbm{H}}\vec{C}}{\myel{\Psi}{\Psi}}$$
 \end{block}
 \begin{block}{$\dot{\vec{C}} = -\frac{i}{\hbar}\mathbbm{S}^{-1}(\mathbbm{H}-i\hbar\boldsymbol{\tau})\vec{C}$}
 $$\vec{C}^{\dagger}\mathbbm{H}\dot{\vec{C}} = -\frac{i}{\hbar}\vec{C}^{\dagger}\mathbbm{H}\mathbbm{S}^{-1}(\mathbbm{H}-i\hbar\boldsymbol{\tau})\vec{C}$$
@@ -157,9 +157,12 @@ $$\vec{C}^{\dagger}\mathbbm{H}\dot{\vec{C}}+\dot{\vec{C}}^{\dagger}\mathbbm{H}\v
 $$(\mathbbm{H}\mathbbm{S}^{-1}\boldsymbol{\tau})_{mk}=\sum_{n,r=1}^N\mathbbm{H}_{mn}\mathbbm{S}^{-1}_{nr}\boldsymbol{\tau}_{rk}=$$
 $$=\sum_{n,r=1}^N\mymean{\phi_m}{\hat{H}}{\phi_n}\mathbbm{S}^{-1}_{nr}\sum_{l=1}^M\myelr{\phi_r}{\frac{\partial\phi_k}{\partial\lambda_{kl}}}\dot{\lambda}_{kl}=$$
 $$=\sum_{l=1}^M\mymean{\phi_m}{\hat{H}\left(\sum_{n,r=1}^N|\phi_n\rangle\mathbbm{S}^{-1}_{nr}\langle\phi_r|\right)}{\frac{\partial\phi_k}{\partial\lambda_{kl}}}\dot{\lambda}_{kl}=%
-   \sum_{l=1}^M\dot{\lambda}_{kl}\left(\tilde{\mathbbm{H}}_{km}^{(l0)}\right)^*$$
-$$(\mathbbm{H}\mathbbm{S}^{-1}\boldsymbol{\tau})_{mk}+(\mathbbm{H}\mathbbm{S}^{-1}\boldsymbol{\tau})_{mk}^{\dagger}=%
-   2\mathit{Re}\left(\sum_{l=1}^M\dot{\lambda}_{kl}\left(\tilde{\mathbbm{H}}_{km}^{(l0)}\right)^*\right)\overset{{\color{red}{(?)}}}{=}0$$
+   \sum_{l=1}^M\dot{\lambda}_{kl}\left(\mathbbm{H}\hat{P}_{km}^{(l0)}\right)^*$$
+$$\left(\mathbbm{H}\mathbbm{S}^{-1}\boldsymbol{\tau}+(\mathbbm{H}\mathbbm{S}^{-1}\boldsymbol{\tau})^{\dagger}\right)_{mk}=%
+   2\mathit{Re}\sum_{l=1}^M\dot{\lambda}_{kl}\left(\mathbbm{H}\hat{P}_{km}^{(l0)}\right)^*,\ %
+\dot{\mathbbm{H}}_{mk}=2\mathit{Re}\sum_{l=1}^M\dot{\lambda}_{kl}\mathbbm{H}_{mk}^{(l0)}$$
+$$\frac{\mymean{\Psi}{\hat{H}}{\Psi}}{\myel{\Psi}{\Psi}}=\vec{C}^{\dagger} \cdot 2\mathit{Re}(\mathbbm{Y}\dot{\Lambda})\cdot\vec{C},\ %
+  \mathit{Re}(\mathbbm{Y}\dot{\Lambda})\overset{{\color{red}{(?)}}}{=}0$$
 \end{block}
 \end{frame}
 
