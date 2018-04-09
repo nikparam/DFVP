@@ -10,12 +10,14 @@ from eig_tools.eig_tools import cholesky, svd, lowdin, sinvert
 class basis():
 	def __init__( self, E, basis = None, omega = 1.0, Ndim = 1 ):
 
+
 		if basis is None:
 			self.basis = []
+			self.basis_tmp = []
 			self.Ndim = Ndim
 	
-			a = 1.
-			b = 1.
+			a = 0.2
+			b = 0.2
 	
 			q_max = vec( np.sqrt( 2 * E / omega ) )
 			q = vec( [ 0.0 ] * Ndim )
@@ -38,6 +40,7 @@ class basis():
 				q += a
 		else:
 			self.basis = basis
+			self.basis_tmp = []
 			self.Ndim = Ndim
 
 	def size( self ):
@@ -51,6 +54,18 @@ class basis():
 		for i, j in product( range( self.size() ), range( self.size() ) ):
 			S[i][j] = ( self.basis[i] * self.basis[j] ).mult()
 		return S
+
+	def tmatrix( self ):
+		T = mtrx( ( self.size(), self.size() ) )
+		for i, j in product( range( self.size() ), range( self.size() ) ):
+			T[ i ][ j ] = ( self.basis[i].T( self.basis[ j ] ) ).sum()
+		return T
+
+	def vmatrix( self ):
+		V = mtrx( ( self.size(), self.size() ) )
+		for i, j in product( range( self.size() ), range( self.size() ) ):
+			V[ i ][ j ] = ( self.basis[i].Vp( self.basis[ j ], 50 ) ).sum()
+		return V
 
 	def hmatrix( self ):
 		H = mtrx( ( self.size(), self.size() ) )
@@ -112,7 +127,8 @@ class basis():
 
 	def qp_dot( self ):
 		ldot = self.lambda_dot()
-		qdot = lmap( lambda i, j: ldot[ i * self.Ndim + j ].real / self.basis[i].omega.call(j), range( self.size() ), range( self.Ndim ) )
+		qdot = lmap( lambda i: ldot[ i ].real / self.basis[ i // self.Ndim ].omega.call( i % self.Ndim ), \
+			     range( self.size() * self.Ndim ) )
 		pdot = lmap( lambda i: ldot[ i ].imag, range( self.size() * self.Ndim ) )
 		qdot.extend( pdot )
 		return qdot
@@ -131,7 +147,7 @@ class basis():
 		return c
 
 	def c_dot( self ):
-		return -1j * np.dot( np.dot( sinvert( self.smatrix() ), ( self.hmatrix() - 1j * self.taumatrix() ) ), self.vec_c() )
+		return -1j * np.dot( sinvert( self.smatrix() ), np.dot( ( self.hmatrix() - 1j * self.taumatrix() ), self.vec_c() ) )
 
 	def dynamics( self, delta_t ):
 		c_dot = self.c_dot()
@@ -139,17 +155,23 @@ class basis():
 		for i in range( self.size() ):
 			self.basis[ i ].D += delta_t * c_dot[ i ]
 			for j in range( self.Ndim ):
-				self.basis[ i ].q.coords[j] += delta_t * qp_dot[ i * self.Ndim + j ]
-				self.basis[ i ].p.coords[j] += delta_t * qp_dot[ int( 0.5 * len( qp_dot ) )  + i * self.Ndim + j ]
+				self.basis[ i ].q.coords[ j ] += delta_t * qp_dot[ i * self.Ndim + j ]
+				self.basis[ i ].p.coords[ j ] += delta_t * qp_dot[ int( 0.5 * len( qp_dot ) )  + i * self.Ndim + j ]
+
+	def norm( self ):
+		return np.dot( self.vec_c(), np.dot( self.smatrix(), self.vec_c() ) )
 
 	def get_states( self ):
-		x, v = lowdin( self.smatrix(), self.hmatrix() )
+		x, v = svd( self.smatrix(), self.hmatrix() )
 		return x, v
 
 	def create_start( self, i = 0 ):
-		x, v = self.get_states()
+#		x, v = self.get_states()
+		N = np.sqrt( self.norm() )
 		for j in range( self.size() ):
-			self.basis[j].D = v[j][i]
+#			self.basis[j].D = v[j][i]
+			self.basis[j].D /= N 
+		
 
 	def __str__ ( self ):
 		return reduce( lambda a, x: a + str( x ) + '\n', self.basis, '' )

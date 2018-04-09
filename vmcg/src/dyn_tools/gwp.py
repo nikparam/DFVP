@@ -11,7 +11,8 @@ def potential( r ):
 	for <g_i|V|g_j> calculation
 	'''
 
-	return 0.5 * r**2
+#	return 0.0
+	return 0.5 * r **2
 
 #________________________________________________________________
 # Gaussian wave packet
