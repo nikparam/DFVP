@@ -1,42 +1,141 @@
-\documentclass[a4paper,14pt]{extarticle}
+\documentclass[10pt,pdf,hyperref={unicode}]{beamer}
 % Стандартные формульные пакеты
 \usepackage{float,amsmath,esint,amsfonts,wrapfig,bbm}
-\usepackage{indentfirst}
-\usepackage[usenames]{color}
 \usepackage{multirow}
-%выставляем поля
-\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
 % Русский текст в формулах
 \usepackage{mathtext}
 % Подключение русского языка
 \usepackage[T2A]{fontenc}
-\usepackage[english,russian]{babel}
+\usepackage[english]{babel}
 \usepackage[utf8]{inputenc}
 % Рисунки
 \usepackage{graphicx,caption,subcaption}
-% Landscape page
-\usepackage{lscape}
-\renewcommand{\arraystretch}{1.1}
+%Theme
+\usetheme{Boadilla}
+%\usecolortheme{dove}
+
+\usepackage{ragged2e}
+
+\setbeamertemplate{frametitle}[default][center]
+
+\addtobeamertemplate{navigation symbols}{}{%
+    \usebeamerfont{footline}%
+    \usebeamercolor[fg]{footline}%
+    \hspace{1em}%
+    \large\insertframenumber/\inserttotalframenumber
+}
+
+\newcommand{\mytitle}[1]{\color{red}{\textbf{ #1 } }}
+\newcommand{\myvec}[1]{\left| #1 \right\rangle}
+\newcommand{\mymean}[3]{\left\langle #1 \left| #2 \right| #3 \right\rangle }
+\newcommand{\myel}[2]{\langle #1 | #2 \rangle }
+\newcommand{\myelr}[2]{\left\langle #1 \left| #2 \right.\right\rangle }
+\newcommand{\myell}[2]{\left.\left\langle #1 \right| #2 \right\rangle }
+\newcommand{\myexp}[1]{\text{exp}\left(#1\right)}
+
 \begin{document}
-\section{Dirac--Frenkel variational principal (DFVP)}
+\begin{frame}{\center\mytitle{\Large Time-dependent variational principles: \\ application for quantum dynamics}}
+\begin{table}[]
+\flushright
+\begin{tabular}{r}
+\large Student of 515 group\\
+\large Paramonov Nikita\\
+\end{tabular}
+\end{table}
+\vfill
+\center
+\today
+\end{frame}
 
-\input{DFVP.tex}
-\input{HFT.tex}
+\begin{frame}{\mytitle{ How do we calculate quantum dynamics? } }
 
-\section{Equations of motions in DFVP formalism}
+\begin{block}{Time-dependent Shr\"odinger equation:}
+$$i\hbar\frac{\partial\Phi}{\partial t}=\hat{H}\Phi$$
+Let's solve it formally:
+$$\Phi(t) = \Phi(0)\myexp{-\frac{i}{\hbar}\hat{H}t}\Rightarrow\frac{\partial}{\partial t}\myel{\Phi(t)}{\Phi(t)}=0$$
+We can use evolution operator to calculate dynamics of wave function --- \textbf{Split operator technique}.
+\end{block}
+\begin{columns}
+\begin{column}{0.45\textwidth}
+\begin{block}{Pros}
+\begin{itemize}
+\item accurate ($\Delta t^3$)
+\end{itemize}
+\end{block}
+\end{column}
 
-\input{EOM.tex}
+\begin{column}{0.45\textwidth}
+\begin{block}{Cons}
+\begin{itemize}
+\item slow
+\end{itemize}
+\end{block}
+\end{column}
+\end{columns}
 
-\section{Gaussian wave packets}
+\center{\textbf{Is there any other way to estimate accurate quantum dynamics}?}
 
-\input{GWP.tex}
+\end{frame}
 
-Combining DFVP and frozen width GWP, we will obtain calculation technique called variational multi-configurational Gaussian method \cite{vmcg}.
+\begin{frame}{\mytitle{ Time--dependent variational principleS(!) } }
 
-\section{Tests}
-\input{tests.tex}
+\begin{block}{Time-dependent variational principle (TDVP):}
+$$\delta S = \delta\left(\int_{0}^{t} L(\Phi,\Phi^*)\,d\tilde{t}\right)=0,\ %
+L(\Phi,\Phi^*) = \frac{ \mymean{\Phi} %
+				 { \hat{H}-i\hbar\frac{\partial}{\partial t} }  %
+				 { \Phi } }{ \myel{\Phi}{\Phi} }$$
+\end{block}
 
-\bibliographystyle{plain}
-\bibliography{bibliography}
+\begin{block}{McLachlan's variational principle:}
+$$\delta\left(\frac{ \mymean{\Phi} %
+	 	{ \hat{H}-i\hbar\frac{\partial}{\partial t} }  %
+		{ \Phi } }{ \myel{\Phi}{\Phi} } \right) = 0$$
+\end{block}
+
+\begin{block}{Dirac--Frenkel variational principle:}
+$$\mymean{\delta\Phi} { \hat{H}-i\hbar\frac{\partial}{\partial t} } { \Phi } = 0$$
+\end{block}
+\end{frame}
+
+\begin{frame}{\mytitle{Wave function ansatz}}
+\begin{block}{Basis $\{\phi_k(\lambda_1,\ldots,\lambda_M)\}_{k=1}^N$: }
+$$\myvec{\Psi}=\sum_{i=1}^N C_k\phi_k$$
+$$\myvec{\delta\Psi}=\sum_{i=1}^N\left( \delta C_k \phi_k + C_k\sum_{l=1}^M\frac{\partial\phi_k}{\partial\lambda_{kl}}\delta\lambda_{kl} \right)$$
+$$\delta C_m^*\sum_{k=1}^N\left\langle\phi_m\left|\hat{H}-i\hbar\frac{\partial}{\partial t}\right|C_k\phi_k\right\rangle=0$$
+$$\delta\lambda_{mj}\sum_{k=1}^NC_m^*\left\langle\frac{\partial\phi_m}{\partial\lambda_{mj}}\left|\hat{H}-i\hbar\frac{\partial}{\partial t}\right|C_k\phi_k\right\rangle = 0$$
+\end{block}
+\end{frame}
+
+\begin{frame}{\mytitle{Equation of motions}}
+\begin{block}{}
+$$\dot{\vec{C}} = -\frac{i}{\hbar}\mathbbm{S}^{-1}\left(\mathbbm{H}-i\hbar\boldsymbol{\tau}\right)\vec{C}\text{ --- vector of coeficients}$$
+$$\dot{\Lambda} = -\frac{i}{\hbar}\mathbbm{X}^{-1}\mathbbm{Y}\text{ --- matrix of parameters}$$
+$$\mathbbm{S}_{mk}=\myel{\phi_m}{\phi_k},\ \mathbbm{H}_{mk} = \mymean{\phi_m}{\hat{H}}{\phi_k},\ %
+  \boldsymbol{\tau}_{mk} = \sum_{l=1}^M\myelr{\phi_m}{\frac{\partial\phi_k}{\partial\lambda_{kl}}}\dot{\lambda}_{kl}$$
+$$\mathbbm{Y}_{m}^j=\sum_{k=1}^N\rho_{mk}\left(\mathbbm{H}_{mk}^{(j0)}-%
+	                     (\mathbbm{S}^{(j0)}\mathbbm{S}^{-1}\mathbbm{H})_{mk} \right),\ %
+  \mathbbm{X}_{mk}^{jl}=\rho_{mk}\left(\mathbbm{S}_{mk}^{(jl)}-%
+					     (\mathbbm{S}^{(j0)}\mathbbm{S}^{-1}\mathbbm{S}^{(0l)})_{mk}\right)$$
+$$\rho_{mk}=C_m^*C_k,\ \mathbbm{H}_{mk}^{(j0)}=\mymean{\frac{\partial\phi_m}{\partial\lambda_{mj}}}{\hat{H}}{\phi_k}$$
+$$\mathbbm{S}_{mk}^{(j0)}=\myell{\frac{\partial\phi_m}{\partial\lambda_{mj}}}{\phi_k},\ %
+  \mathbbm{S}_{mk}^{(0l)}=\myelr{\phi_m}{\frac{\partial\phi_k}{\partial\lambda_{kl}}},\ %
+  \mathbbm{S}_{mk}^{(jl)}=\myelr{\frac{\partial\phi_m}{\partial\lambda_{mj}}}{\frac{\partial\phi_k}{\partial\lambda_{kl}}}$$
+\end{block}
+\end{frame}
+
+\begin{frame}{\mytitle{Basis set}}
+\begin{block}{Frozen width gaussian wave packets:}
+$$\myvec{g_k}=\myexp{\frac{1}{\hbar}\sum_{\alpha}\left[-\frac{1}{2}\omega r_{\alpha}^2 + \xi_{k\alpha}r_{\alpha} + \eta_{k\alpha} \right]}$$
+\begin{equation*}
+\begin{cases}
+\xi_{k\alpha}=\omega q_{k\alpha} + ip_{k\alpha}\\
+\eta_{k\alpha}=\frac{1}{4}\left( \ln\left[\frac{\omega}{\pi}\right] - 2\omega q_{k\alpha}^2\right) - iq_{k\alpha}p_{k\alpha}
+\end{cases}
+\end{equation*}
+$$\myvec{g_k}=\left(\frac{\omega}{\pi}\right)^{\alpha/4}%
+	      \myexp{\frac{1}{\hbar}\sum_{\alpha}\left[-\frac{1}{2}\omega(r_{\alpha}-q_{k\alpha})^2 + i\frac{p_{k\alpha}}{m_k}(r_{\alpha}-q_{k\alpha}) \right]}$$
+$$\frac{\mymean{g_k}{r_{\alpha}}{g_k}}{\myel{g_k}{g_k}} = q_{k\alpha},\ \frac{\mymean{g_k}{-i\hbar\frac{\partial}{\partial r_{\alpha}}}{g_k}}{\myel{g_k}{g_k}} = p_{k\alpha}$$
+\end{block}
+\end{frame}
 
 \end{document}

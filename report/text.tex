@@ -1,0 +1,42 @@
+\documentclass[a4paper,14pt]{extarticle}
+% Стандартные формульные пакеты
+\usepackage{float,amsmath,esint,amsfonts,wrapfig,bbm}
+\usepackage{indentfirst}
+\usepackage[usenames]{color}
+\usepackage{multirow}
+%выставляем поля
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+% Русский текст в формулах
+\usepackage{mathtext}
+% Подключение русского языка
+\usepackage[T2A]{fontenc}
+\usepackage[english,russian]{babel}
+\usepackage[utf8]{inputenc}
+% Рисунки
+\usepackage{graphicx,caption,subcaption}
+% Landscape page
+\usepackage{lscape}
+\renewcommand{\arraystretch}{1.1}
+\begin{document}
+\section{Dirac--Frenkel variational principal (DFVP)}
+
+\input{DFVP.tex}
+\input{HFT.tex}
+
+\section{Equations of motions in DFVP formalism}
+
+\input{EOM.tex}
+
+\section{Gaussian wave packets}
+
+\input{GWP.tex}
+
+Combining DFVP and frozen width GWP, we will obtain calculation technique called variational multi-configurational Gaussian method \cite{vmcg}.
+
+%\section{Tests}
+%\input{tests.tex}
+
+\bibliographystyle{plain}
+\bibliography{bibliography}
+
+\end{document}
