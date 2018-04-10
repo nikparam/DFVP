@@ -1,0 +1,16 @@
+\begin{frame}{\mytitle{Equation of motions}}
+$$\dot{\vec{C}}_n = -\frac{i}{\hbar}\sum_{k,m=1}^N\mathbbm{S}^{-1}_{nm}\left(\mathbbm{H}_{mk}-i\hbar\boldsymbol{\tau}_{mk}\right)\vec{C}_k\text{ --- vector of coefficients}$$
+$$\dot{\lambda}_{kl} = -\frac{i}{\hbar}\sum_{m=1}^N\sum_{j=1}^M\left(\mathbbm{X}^{-1}\right)_{km}^{lj}\mathbbm{Y}_m^j\text{ --- matrix of parameters}$$
+$$\mathbbm{S}_{mk}=\myel{\phi_m}{\phi_k},\ \mathbbm{H}_{mk} = \mymean{\phi_m}{\hat{H}}{\phi_k},\ %
+  \boldsymbol{\tau}_{mk} = \sum_{l=1}^M\myelr{\phi_m}{\frac{\partial\phi_k}{\partial\lambda_{kl}}}\dot{\lambda}_{kl}$$
+$$\mathbbm{X}_{km}^{lj}=\rho_{km}\left(\mathbbm{S}_{km}^{(lj)}-%
+					     (\mathbbm{S}^{(l0)}\mathbbm{S}^{-1}\mathbbm{S}^{(0j)})_{km}\right),\ %
+\mathbbm{Y}_{m}^j=\sum_{n=1}^N\rho_{mn}\left(\mathbbm{H}_{mn}^{(j0)}-%
+	                     (\mathbbm{S}^{(j0)}\mathbbm{S}^{-1}\mathbbm{H})_{mn} \right)$$
+$$\rho_{mn}=C_m^*C_n,\ \mathbbm{H}_{mn}^{(j0)}=\mymean{\frac{\partial\phi_m}{\partial\lambda_{mj}}}{\hat{H}}{\phi_n}$$
+$$\mathbbm{S}_{mn}^{(j0)}=\myell{\frac{\partial\phi_m}{\partial\lambda_{mj}}}{\phi_n},\ %
+  \mathbbm{S}_{km}^{(0j)}=\myelr{\phi_k}{\frac{\partial\phi_m}{\partial\lambda_{mj}}},\ %
+  \mathbbm{S}_{km}^{(lj)}=\myelr{\frac{\partial\phi_k}{\partial\lambda_{kl}}}{\frac{\partial\phi_m}{\partial\lambda_{mj}}}$$
+\end{frame}
+
+

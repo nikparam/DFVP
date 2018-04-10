@@ -1,0 +1,10 @@
+\begin{frame}{\mytitle{Wave function ansatz}}
+\begin{block}{Basis $\{\phi_k(\vec{R}|\lambda_{k1},\ldots,\lambda_{kM})\}_{k=1}^N$: }
+$$\myvec{\Psi}=\sum_{i=1}^N C_k\phi_k$$
+$$\myvec{\delta\Psi}=\sum_{i=1}^N\left( \delta C_k \phi_k + C_k\sum_{l=1}^M\frac{\partial\phi_k}{\partial\lambda_{kl}}\delta\lambda_{kl} \right)$$
+$$\delta C_m^*\sum_{k=1}^N\left\langle\phi_m\left|\hat{H}-i\hbar\frac{\partial}{\partial t}\right|C_k\phi_k\right\rangle=0$$
+$$\delta\lambda_{mj}\sum_{k=1}^NC_m^*\left\langle\frac{\partial\phi_m}{\partial\lambda_{mj}}\left|\hat{H}-i\hbar\frac{\partial}{\partial t}\right|C_k\phi_k\right\rangle = 0$$
+\end{block}
+\end{frame}
+
+

@@ -1,0 +1,19 @@
+\begin{frame}{\mytitle{Basis set}}
+\begin{block}{Frozen width gaussian wave packets:}
+$$\myvec{g_k}=\myexp{\sum_{\alpha}\left[-\frac{1}{2}\omega R_{\alpha}^2 + %
+							\xi_{k\alpha}R_{\alpha} + %
+							\eta_{k\alpha} \right]}$$
+$$\xi_{k\alpha}=\omega q_{k\alpha} + p_{k\alpha},\ %
+\eta_{k\alpha}=\frac{1}{4}\left( \ln\left[\frac{\omega}{\pi}\right] - 2\omega q_{k\alpha}^2\right) - iq_{k\alpha}p_{k\alpha}$$
+$$\myvec{g_k}=\left(\frac{\omega}{\pi}\right)^{\alpha/4}%
+	      \myexp{\sum_{\alpha}\left[-\frac{1}{2}\omega(R_{\alpha}-q_{k\alpha})^2 + %
+						       ip_{k\alpha}(R_{\alpha}-q_{k\alpha}) \right]}$$
+$$\myel{g_k}{g_k} = 1,\ %
+  \mymean{g_k}{R_{\alpha}}{g_k} = q_{k\alpha},\ %
+  \mymean{g_k}{-i\frac{\partial}{\partial R_{\alpha}}}{g_k} = p_{k\alpha}$$
+\end{block}
+\textbf{Trick of gaussian wave packets}:\\
+$$\dot{q}_{k\alpha} = \mathit{Re}(\dot{\xi}_{k\alpha})/\omega,\ \dot{p}_{k\alpha}=\mathit{Im}(\dot{\xi}_{k\alpha})\text{ --- we need only quarter of $\dot{\lambda}$ matrix}$$
+\end{frame}
+
+

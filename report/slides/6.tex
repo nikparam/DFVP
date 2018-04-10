@@ -1,0 +1,16 @@
+\begin{frame}{\mytitle{What about laws of conservation?}}
+\begin{block}{Conservation of norm:}
+$$\frac{\partial}{\partial t}\myel{\Psi}{\Psi} = \sum_{k,m=1}^N\frac{\partial}{\partial t}\left( C_k^*C_m\myel{\phi_k}{\phi_m}\right) =%
+  \frac{\partial}{\partial t}\vec{C}^{\dagger}\mathbbm{S}\vec{C} = \dot{\vec{C}}^{\dagger}\mathbbm{S}\vec{C} + %
+								   \vec{C}^{\dagger}\mathbbm{S}\dot{\vec{C}} + %
+								   \vec{C}^{\dagger}\dot{\mathbbm{S}}\vec{C}$$
+\end{block}
+$$\vec{C}^{\dagger}\mathbbm{S}\dot{\vec{C}} = -\frac{i}{\hbar}\vec{C}^{\dagger}(\mathbbm{H}-i\hbar\boldsymbol{\tau})\vec{C},$$
+$$\dot{\vec{C}}^{\dagger}\mathbbm{S}\vec{C} = \left(-\frac{i}{\hbar}\mathbbm{S}^{-1}(\mathbbm{H}-i\hbar\boldsymbol{\tau})\vec{C}\right)^{\dagger}\mathbbm{S}\vec{C} = %
+					    \frac{i}{\hbar}\vec{C}^{\dagger}(\mathbbm{H}+i\hbar\boldsymbol{\tau}^{\dagger})\vec{C}$$
+$$\dot{\vec{C}}^{\dagger}\mathbbm{S}\vec{C} + \vec{C}^{\dagger}\mathbbm{S}\dot{\vec{C}} = %
+					    - \vec{C}^{\dagger}(\boldsymbol{\tau}+\boldsymbol{\tau}^{\dagger})\vec{C} = -\vec{C}^{\dagger}\dot{\mathbbm{S}}\vec{C}\Rightarrow%
+  \frac{\partial}{\partial t}\myel{\Psi}{\Psi} = 0$$
+\end{frame}
+
+

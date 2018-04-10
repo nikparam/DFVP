@@ -1,0 +1,20 @@
+\begin{frame}{ \mytitle{Any other drawbacks?} }
+\begin{block}{$\mathbbm{H}$--matrix:}
+$$\mymean{\phi_m}{\hat{H}}{\phi_k} = \mymean{\phi_m}%
+					    {-\frac{\hbar^2}{2M}\Delta}%
+					    {\phi_k}+%
+                                     \mymean{\phi_m}{V(\vec{R})}{\phi_k}$$
+We need to know full potential energy surface to calculate $\mymean{\phi_m}{V}{\phi_k}$!
+\end{block}
+\begin{block}{Solution: harmonic approximation}
+Let's expand potential energy:
+$$V(\vec{R}) = V(\vec{R}_0) + %
+		      \sum_{\alpha=1}^M\left.\left(\frac{\partial V}{\partial R_{\alpha}}\right)\right|_{R_{\alpha}=R_{\alpha 0}}%
+		 		       (R_{\alpha} - R_{\alpha 0})+$$
+$$+\sum_{\alpha,\beta=1}^M\left.\left(\frac{\partial^2 V}{\partial R_{\alpha}\partial R_{\beta}}\right)\right|_%
+			  {\substack{R_{\alpha}=R_{\alpha 0}\\R_{\beta}=R_{\beta 0}}}%
+			  (R_{\alpha}-R_{\alpha 0})(R_{\beta}-R_{\beta 0})+\ldots$$
+\end{block}
+\end{frame}
+
+

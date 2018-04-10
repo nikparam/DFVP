@@ -1,0 +1,30 @@
+\begin{frame}{\mytitle{ How do we calculate quantum dynamics? } }
+
+\begin{block}{Time-dependent Shr\"odinger equation:}
+$$i\hbar\frac{\partial\Phi}{\partial t}=\hat{H}\Phi$$
+Let's solve it formally:
+$$\Phi(t) = \Phi(0)\myexp{-\frac{i}{\hbar}\hat{H}t}\Rightarrow\frac{\partial}{\partial t}\myel{\Phi(t)}{\Phi(t)}=0$$
+We can use propagator to calculate dynamics of wave function --- \textbf{Split operator technique}.
+\end{block}
+\begin{columns}
+\begin{column}{0.45\textwidth}
+\begin{block}{Pros}
+\begin{itemize}
+\item accurate ($\Delta t^3$)
+\end{itemize}
+\end{block}
+\end{column}
+
+\begin{column}{0.45\textwidth}
+\begin{block}{Cons}
+\begin{itemize}
+\item slow
+\end{itemize}
+\end{block}
+\end{column}
+\end{columns}
+
+\center{\textbf{Is there any other way to estimate accurate quantum dynamics}?}
+
+\end{frame}
+

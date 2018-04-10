@@ -1,0 +1,51 @@
+\documentclass[10pt,pdf,hyperref={unicode}]{beamer}
+% Стандартные формульные пакеты
+\usepackage{float,amsmath,esint,amsfonts,wrapfig,bbm}
+\usepackage{multirow}
+% Русский текст в формулах
+\usepackage{mathtext}
+% Подключение русского языка
+\usepackage[T2A]{fontenc}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+% Рисунки
+\usepackage{graphicx,caption,subcaption}
+%Theme
+\usetheme{Boadilla}
+%\usecolortheme{dove}
+
+\usepackage{ragged2e}
+
+\setbeamertemplate{frametitle}[default][center]
+
+\addtobeamertemplate{navigation symbols}{}{%
+    \usebeamerfont{footline}%
+    \usebeamercolor[fg]{footline}%
+    \hspace{1em}%
+    \large\insertframenumber/\inserttotalframenumber
+}
+
+\newcommand{\mytitle}[1]{\color{red}{\textbf{ #1 } }}
+\newcommand{\myvec}[1]{\left| #1 \right\rangle}
+\newcommand{\mymean}[3]{\left\langle #1 \left| #2 \right| #3 \right\rangle }
+\newcommand{\myel}[2]{\langle #1 | #2 \rangle }
+\newcommand{\myelr}[2]{\left\langle #1 \left| #2 \right.\right\rangle }
+\newcommand{\myell}[2]{\left.\left\langle #1 \right| #2 \right\rangle }
+\newcommand{\myexp}[1]{\text{exp}\left(#1\right)}
+
+\begin{document}
+\input{1.tex}
+\input{2.tex}
+\input{3.tex}
+\input{4.tex}
+\input{5.tex}
+\input{6.tex}
+\input{7.tex}
+\input{8.tex}
+\input{9.tex}%
+\input{10.tex}
+\input{11.tex}
+\input{12.tex}
+\input{13.tex}
+
+\end{document}

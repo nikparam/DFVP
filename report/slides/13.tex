@@ -1,0 +1,19 @@
+\begin{frame}{\mytitle{"Nonsymmetric" method}}
+\begin{block}{$\mathbbm{S}$--matrix inversion}
+$$\mathbbm{S} = \mathbbm{U}\mathbbm{s}\mathbbm{V}^{\dagger}\text{ --- singular value decomposition}$$
+$\mathbbm{s}$ --- diagonal matrix of singular values (eigenvalues of $\mathbbm{S}\mathbbm{S}^{\dagger}$ and $\mathbbm{S}^{\dagger}\mathbbm{S}$), \\
+$\mathbbm{U}$ --- unitary matrix of left--singular vectors (eigenvectors of $\mathbbm{S}\mathbbm{S}^{\dagger}$), \\
+$\mathbbm{V}$ --- unitary matrix of right--singular vectors (eigenvectors of $\mathbbm{S}^{\dagger}\mathbbm{S}$).
+$$\mathbbm{S}^{-1} = \mathbbm{V}\mathbbm{s}^{-1}\mathbbm{U}^{\dagger},\ \left(\mathbbm{S}^{-1}\mathbbm{H}\right)\vec{C}_k=E_k\vec{C}_k$$
+\end{block}
+\begin{block}{Types of singular values decompositions:}
+\begin{enumerate}
+\item Full SVD --- consider all singular values
+\item Truncated SVD --- consider all singular values greater then $\varepsilon$,
+			all other assume equal to zero
+\item Regularized SVD --- consider all singular values with certain weights $s_i'=w_is_i$:\\
+$w_i = (s_i^2+\varepsilon^2)/s_i^2$ or $w_i = 1 + \varepsilon\cdot\myexp{-\varepsilon s_i}/s_i$, where $\varepsilon\text{ is small}$
+\end{enumerate}
+\end{block}
+\end{frame}
+
