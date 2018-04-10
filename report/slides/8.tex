@@ -1,16 +1,15 @@
 \begin{frame}{\mytitle{What about laws of conservation?}}
-\begin{block}{Conservation of energy:}
 $$(\mathbbm{H}\mathbbm{S}^{-1}\boldsymbol{\tau})_{mk}=\sum_{n,r=1}^N\mathbbm{H}_{mn}\mathbbm{S}^{-1}_{nr}\boldsymbol{\tau}_{rk}=$$
 $$=\sum_{n,r=1}^N\mymean{\phi_m}{\hat{H}}{\phi_n}\mathbbm{S}^{-1}_{nr}\sum_{l=1}^M\myelr{\phi_r}{\frac{\partial\phi_k}{\partial\lambda_{kl}}}\dot{\lambda}_{kl}=$$
 $$=\sum_{l=1}^M\mymean{\phi_m}{\hat{H}\left(\sum_{n,r=1}^N|\phi_n\rangle\mathbbm{S}^{-1}_{nr}\langle\phi_r|\right)}{\frac{\partial\phi_k}{\partial\lambda_{kl}}}\dot{\lambda}_{kl}=%
-   \sum_{l=1}^M\dot{\lambda}_{kl}\left(\mathbbm{H}\hat{P}_{km}^{(l0)}\right)^*$$
-$$\left(\mathbbm{H}\mathbbm{S}^{-1}\boldsymbol{\tau}+(\mathbbm{H}\mathbbm{S}^{-1}\boldsymbol{\tau})^{\dagger}\right)_{mk}=%
-   2\mathit{Re}\sum_{l=1}^M\dot{\lambda}_{kl}\left(\mathbbm{H}\hat{P}_{km}^{(l0)}\right)^*,\ %
-\dot{\mathbbm{H}}_{mk}=2\mathit{Re}\sum_{l=1}^M\dot{\lambda}_{kl}\left(\mathbbm{H}_{mk}^{(l0)}\right)^*$$
-$$\frac{\partial}{\partial t}\frac{\mymean{\Psi}{\hat{H}}{\Psi}}{\myel{\Psi}{\Psi}}=%
-  2\mathit{Re}(\mathbbm{Y}\dot{\Lambda}),\ %
-  \mathit{Re}(\mathbbm{Y}\dot{\Lambda})\overset{{\color{red}{(?)}}}{=}0$$
-\end{block}
-\end{frame}
+\sum_{l=1}^M\mymean{\phi_m}{\hat{H}\hat{P}}{\frac{\partial\phi_k}{\partial\lambda_{kl}}}\dot{\lambda}_{kl}$$
+$$(\dot{\mathbbm{H}} - \mathbbm{H}\mathbbm{S}^{-1}\boldsymbol{\tau}-\boldsymbol{\tau}^{\dagger}\mathbbm{S}^{-1}\mathbbm{H})_{mk}=$$
+$$=\sum_{l=1}^M\mymean{\phi_m}%
+		      {\hat{H}(\hat{1}-\hat{P})}%
+		      {\frac{\partial\phi_k}{\partial\lambda_{kl}}}\dot{\lambda}_{kl}+%
+	       \mymean{\frac{\partial\phi_m}{\partial\lambda_{ml}}}%
+		      {(\hat{1}-\hat{P})\hat{H}}%
+		      {\phi_k}\dot{\lambda}_{ml}^*\neq0$$
 
+\end{frame}
 

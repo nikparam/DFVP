@@ -3,14 +3,23 @@
 $$\frac{\partial}{\partial t}\frac{\mymean{\Psi}{\hat{H}}{\Psi}}{\myel{\Psi}{\Psi}} = %
   \frac{1}{\myel{\Psi}{\Psi}}\frac{\partial}{\partial t}\sum_{k,m=1}^NC_k^*C_m\mymean{\phi_k}{\hat{H}}{\phi_m} = $$
 $$=\frac{1}{\myel{\Psi}{\Psi}}\frac{\partial}{\partial t}\vec{C}^{\dagger}\mathbbm{H}\vec{C}=%
-  \frac{\dot{\vec{C}}^{\dagger}\mathbbm{H}\vec{C}+\vec{C}^{\dagger}\mathbbm{H}\dot{\vec{C}} + \vec{C}^{\dagger}\dot{\mathbbm{H}}\vec{C}}{\myel{\Psi}{\Psi}}$$
+  \frac{\dot{\vec{C}}^{\dagger}\mathbbm{H}\vec{C}+\vec{C}^{\dagger}\mathbbm{H}\dot{\vec{C}} + \vec{C}^{\dagger}\dot{\mathbbm{H}}\vec{C}}{\myel{\Psi}{\Psi}}\overset{ {\color{red}{(?)}} }{=}0$$
+
 \end{block}
-$$\vec{C}^{\dagger}\mathbbm{H}\dot{\vec{C}} = -\frac{i}{\hbar}\vec{C}^{\dagger}\mathbbm{H}\mathbbm{S}^{-1}(\mathbbm{H}-i\hbar\boldsymbol{\tau})\vec{C},\quad%
-\dot{\vec{C}}^{\dagger}\mathbbm{H}\vec{C} = \frac{i}{\hbar}\vec{C}^\dagger(\mathbbm{H}+i\hbar\boldsymbol{\tau}^{\dagger})\mathbbm{S}^{-1}\mathbbm{H}\vec{C}$$
-$$\vec{C}^{\dagger}\mathbbm{H}\dot{\vec{C}}+\dot{\vec{C}}^{\dagger}\mathbbm{H}\vec{C} = %
- -\vec{C}^{\dagger}(\mathbbm{H}\mathbbm{S}^{-1}\boldsymbol{\tau} + \boldsymbol{\tau}^{\dagger}\mathbbm{S}^{-1}\mathbbm{H})\vec{C}$$
-$$\vec{C}^{\dagger}\dot{\mathbbm{H}}\vec{C} = \sum_{m,k=1}^NC_m^*C_k%
-					      \sum_{l=1}^M\left(\mathbbm{H}_{mk}^{(0l)}\dot{\lambda}_{kl}+\
-								\mathbbm{H}_{mk}^{(l0)}\dot{\lambda}_{ml}^*\right)$$
+%$$\vec{C}^{\dagger}\mathbbm{H}\dot{\vec{C}} = -\frac{i}{\hbar}\vec{C}^{\dagger}\mathbbm{H}\mathbbm{S}^{-1}(\mathbbm{H}-i\hbar\boldsymbol{\tau})\vec{C},\quad%
+%\dot{\vec{C}}^{\dagger}\mathbbm{H}\vec{C} = \frac{i}{\hbar}\vec{C}^\dagger(\mathbbm{H}+i\hbar\boldsymbol{\tau}^{\dagger})\mathbbm{S}^{-1}\mathbbm{H}\vec{C}$$
+$$\vec{C}^{\dagger}\mathbbm{H}\dot{\vec{C}}+\dot{\vec{C}}^{\dagger}\mathbbm{H}\vec{C}+\vec{C}^{\dagger}\dot{\mathbbm{H}}\vec{C} = %
+ \vec{C}^{\dagger}(\dot{\mathbbm{H}}-\mathbbm{H}\mathbbm{S}^{-1}\boldsymbol{\tau}-\boldsymbol{\tau}^{\dagger}\mathbbm{S}^{-1}\mathbbm{H})\vec{C}$$
+%$$\dot{\mathbbm{H}}_{mk}=\sum_{l=1}^M\mymean{\phi_m}{\hat{H}}{\frac{\partial\phi_k}{\partial\lambda_{kl}}}\dot{\lambda}_{kl}+
+%				     \mymean{\frac{\partial\phi_m}{\partial\lambda_{ml}}}{\hat{H}}{\phi_k}\dot{\lambda}_{mk}^*=%
+%			 \sum_{l=1}^M(\mathbbm{H}^{(l0)})_{mk}^{\dagger}\dot{\lambda}_{kl}+\mathbbm{H}_{mk}^{(l0)}\dot{\lambda}_{kl}^*$$
+$$(\dot{\mathbbm{H}} - \mathbbm{H}\mathbbm{S}^{-1}\boldsymbol{\tau}-\boldsymbol{\tau}^{\dagger}\mathbbm{S}^{-1}\mathbbm{H})_{mk}=$$
+$$=\sum_{l=1}^M\mymean{\phi_m}%
+		      {\hat{H}(\hat{1}-\hat{P})}%
+		      {\frac{\partial\phi_k}{\partial\lambda_{kl}}}\dot{\lambda}_{kl}+%
+	       \mymean{\frac{\partial\phi_m}{\partial\lambda_{ml}}}%
+		      {(\hat{1}-\hat{P})\hat{H}}%
+		      {\phi_k}\dot{\lambda}_{ml}^*\neq0$$
+
 \end{frame}
 
