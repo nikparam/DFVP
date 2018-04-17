@@ -89,6 +89,14 @@ class gwp( ):
 			( self.xi.conj() + other.xi )**2 / \
 			( self.omega + other.omega )**2 )
 
+	def der3( self, other ):
+
+		return ( self * other ).mult() * \
+			( 3.0 / ( self.omega + other.omega )**2 + \
+			( self.xi.conj() + other.xi )**3 / \
+			( self.omega + other.omega )**3 )
+
+
 	def psi( self, r, i ):
 		'''
 		psi = exp( -0.5 * omega * r^2 + xi * r + eta )
@@ -107,6 +115,11 @@ class gwp( ):
 			other.omega * other.xi * self.der1( other ) - \
 			0.5 * self.omega**2 * self.der2( other )
 
+	def T1( self, other ):
+
+		return  0.5 * self.der1( other ) * ( other.omega - other.xi * other.xi ) + \
+			other.omega * other.xi * self.der2( other ) - \
+			0.5 * self.omega**2 * self.der3( other )
 
 	def Vp( self, other, NPTS ):
 		'''
@@ -161,8 +174,7 @@ class gwp( ):
 
 	def H1( self, other ):
 
-		return ( self.xi.conj() + other.xi ) / \
-		       ( self.omega + other.omega ) *  self.T( other ) + self.V1p( other, 50 ) 
+		return self.T1( other ) + self.V1p( other, 50 ) 
 
 	def __str__( self ):
 		'''

@@ -129,8 +129,7 @@ class basis():
 		qdot = lmap( lambda i: ldot[ i ].real / self.basis[ i // self.Ndim ].omega.call( i % self.Ndim ), \
 			     range( self.size() * self.Ndim ) )
 		pdot = lmap( lambda i: ldot[ i ].imag, range( self.size() * self.Ndim ) )
-		qdot.extend( pdot )
-		return qdot
+		return qdot, pdot
 
 	def taumatrix( self ):
 		tau = mtrx( ( self.size(), self.size() ) )
@@ -148,53 +147,80 @@ class basis():
 	def c_dot( self ):
 		return -1j * np.dot( sinvert( self.smatrix() ), np.dot( ( self.hmatrix() - 1j * self.taumatrix() ), self.vec_c() ) )
 
-	def dynamics( self, i, delta_t ):
-		c_dot = self.c_dot()
-		qp_dot = self.qp_dot()
-		if i == 0:
-			self.basis_tmp.append( basis( 0.0, self.basis, 1.0, self.Ndim ) )
+	def create_tmp_basis( self, y_c, y_q, y_p ):
+		b_tmp = []
+		for i in range( self.size() ):
+			q = []
+			p = []
+			for j in range( self.Ndim ):
+				q.append( y_q[ i * self.Ndim + j ] )
+				p.append( y_p[ i * self.Ndim + j ] )
+			b_tmp.append( gwp( y_c[i], q, p ) )
 
-			for i in range( self.size() ):
-				self.basis[ i ].D += delta_t * c_dot[ i ]
-				for j in range( self.Ndim ):
-					self.basis[ i ].q.coords[ j ] += delta_t * qp_dot[ i * self.Ndim + j ]
-					self.basis[ i ].p.coords[ j ] += delta_t * qp_dot[ int( 0.5 * len( qp_dot ) )  + i * self.Ndim + j ]
+		self.basis_tmp = basis( 0.0, b_tmp )
+#		print( self.basis_tmp)
 
-		if i == 1:
-			c_dot_prev = self.basis_tmp[0].c_dot()
-			qp_dot_prev = self.basis_tmp[0].qp_dot()
-			self.basis_tmp.append( basis( 0.0, self.basis, 1.0, self.Ndim ) )
+	def dynamics( self, delta_t ):
+		k1_c_dot = self.c_dot()
+		k1_q_dot, k1_p_dot = self.qp_dot()
 
-			for i in range( self.size() ):
-				self.basis[ i ].D += 0.5 * delta_t * ( c_dot[ i ] + c_dot_prev[i] )
-				for j in range( self.Ndim ):
-					self.basis[ i ].q.coords[ j ] += 0.5 * delta_t * ( qp_dot[ i * self.Ndim + j ] + qp_dot_prev[ i * self.Ndim + j ] )
-					self.basis[ i ].p.coords[ j ] += 0.5 * delta_t * ( qp_dot[ int( 0.5 * len( qp_dot ) )  + i * self.Ndim + j ] + \
-											   qp_dot_prev[ int( 0.5 * len( qp_dot ) )  + i * self.Ndim + j ] )
+		y_c = lmap( lambda y, k1: y.D + 0.5 * k1 * delta_t, self.basis, k1_c_dot )
+		y_q = [ self.basis[i].q.coords[j] + 0.5 * k1_q_dot[ i * self.Ndim + j ] * delta_t  \
+		         for i, j in product( range( self.size() ), range( self.Ndim ) ) ]
+		y_p = [ self.basis[i].p.coords[j] + 0.5 * k1_p_dot[ i * self.Ndim + j ] * delta_t  \
+			 for i, j in product( range( self.size() ), range( self.Ndim ) ) ]
 
-		if i >= 2:
-			c_dot1 = self.basis_tmp[0].c_dot()
-			qp_dot1 = self.basis_tmp[0].qp_dot()
-			c_dot2 = self.basis_tmp[1].c_dot()
-			qp_dot2 = self.basis_tmp[1].qp_dot()
-			self.basis_tmp[0] = self.basis_tmp[1]
-			self.basis_tmp[1] =  basis( 0.0, self.basis, 1.0, self.Ndim ) 
+#		print('1__________________')
+		self.create_tmp_basis( y_c, y_q, y_p )
+#		print('___________________')
 
-			for i in range( self.size() ):
-				self.basis[ i ].D += delta_t * ( c_dot[ i ] + c_dot1[i] + 4 * c_dot2[i] ) / 3
-				for j in range( self.Ndim ):
-					self.basis[ i ].q.coords[ j ] += delta_t * ( qp_dot[ i * self.Ndim + j ] + \
-										     qp_dot1[ i * self.Ndim + j ] + \
-										     qp_dot2[ i * self.Ndim + j ] ) / 3
-					self.basis[ i ].p.coords[ j ] += delta_t * ( qp_dot[ int( 0.5 * len( qp_dot ) )  + i * self.Ndim + j ] + \
-										     qp_dot1[ int( 0.5 * len( qp_dot ) ) + i * self.Ndim + j ] + \
-										     qp_dot2[ int( 0.5 * len( qp_dot ) ) + i * self.Ndim + j ] )
-	
+		k2_c_dot = self.basis_tmp.c_dot()
+		k2_q_dot, k2_p_dot = self.basis_tmp.qp_dot()
 
+		y_c = lmap( lambda y, k2: y.D + 0.5 * k2 * delta_t, self.basis, k2_c_dot )
+		y_q = [ self.basis[i].q.coords[j] + 0.5 * k2_q_dot[ i * self.Ndim + j ] * delta_t  \
+			for i, j in product( range( self.size() ), range( self.Ndim ) ) ]
+		y_p = [ self.basis[i].p.coords[j] + 0.5 * k2_p_dot[ i * self.Ndim + j ] * delta_t  \
+			for i, j in product( range( self.size() ), range( self.Ndim ) ) ]
 
+#		print('2__________________')
+		self.create_tmp_basis( y_c, y_q, y_p )
+#		print('___________________')
+
+		k3_c_dot = self.basis_tmp.c_dot()
+		k3_q_dot, k3_p_dot = self.basis_tmp.qp_dot()
+
+		y_c = lmap( lambda y, k3: y.D + k3 * delta_t, self.basis, k3_c_dot )
+		y_q = [ self.basis[i].q.coords[j] + k3_q_dot[ i * self.Ndim + j ] * delta_t  \
+			for i, j in product( range( self.size() ), range( self.Ndim ) ) ]
+		y_p = [ self.basis[i].p.coords[j] + k3_p_dot[ i * self.Ndim + j ] * delta_t  \
+			for i, j in product( range( self.size() ), range( self.Ndim ) ) ]
+
+#		print('3__________________')
+		self.create_tmp_basis( y_c, y_q, y_p )
+#		print('___________________')
+
+		k4_c_dot = self.basis_tmp.c_dot()
+		k4_q_dot, k4_p_dot = self.basis_tmp.qp_dot()
+
+		for i in range( self.size() ):
+			self.basis[ i ].D += ( k1_c_dot[i] + 2 * k2_c_dot[i] + 2 * k3_c_dot[i] + k4_c_dot[i] ) * delta_t / 6
+			for j in range( self.Ndim ):
+				self.basis[ i ].q.coords[ j ] += ( k1_q_dot[ i * self.Ndim + j ] + \
+								   2 * k2_q_dot[ i * self.Ndim + j ] + \
+								   2 * k3_q_dot[ i * self.Ndim + j ] + \
+								   k4_q_dot[ i * self.Ndim + j ] ) * delta_t / 6
+
+				self.basis[ i ].p.coords[ j ] += ( k1_p_dot[ i * self.Ndim + j ] + \
+								   2 * k2_p_dot[ i * self.Ndim + j ] + \
+								   2 * k3_p_dot[ i * self.Ndim + j ] + \
+								   k4_p_dot[ i * self.Ndim + j ] ) * delta_t / 6
 
 	def norm( self ):
 		return np.dot( np.conj( self.vec_c() ), np.dot( self.smatrix(), self.vec_c() ) )
+
+	def energy( self ):
+		return np.dot( np.conj( self.vec_c() ), np.dot( self.hmatrix(), self.vec_c() ) )
 
 	def get_states( self ):
 		x, v = svd( self.smatrix(), self.hmatrix() )
