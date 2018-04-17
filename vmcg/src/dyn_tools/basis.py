@@ -10,7 +10,6 @@ from eig_tools.eig_tools import cholesky, svd, lowdin, sinvert
 class basis():
 	def __init__( self, E, basis = None, omega = 1.0, Ndim = 1 ):
 
-
 		if basis is None:
 			self.basis = []
 			self.basis_tmp = []
@@ -149,17 +148,53 @@ class basis():
 	def c_dot( self ):
 		return -1j * np.dot( sinvert( self.smatrix() ), np.dot( ( self.hmatrix() - 1j * self.taumatrix() ), self.vec_c() ) )
 
-	def dynamics( self, delta_t ):
+	def dynamics( self, i, delta_t ):
 		c_dot = self.c_dot()
 		qp_dot = self.qp_dot()
-		for i in range( self.size() ):
-			self.basis[ i ].D += delta_t * c_dot[ i ]
-			for j in range( self.Ndim ):
-				self.basis[ i ].q.coords[ j ] += delta_t * qp_dot[ i * self.Ndim + j ]
-				self.basis[ i ].p.coords[ j ] += delta_t * qp_dot[ int( 0.5 * len( qp_dot ) )  + i * self.Ndim + j ]
+		if i == 0:
+			self.basis_tmp.append( basis( 0.0, self.basis, 1.0, self.Ndim ) )
+
+			for i in range( self.size() ):
+				self.basis[ i ].D += delta_t * c_dot[ i ]
+				for j in range( self.Ndim ):
+					self.basis[ i ].q.coords[ j ] += delta_t * qp_dot[ i * self.Ndim + j ]
+					self.basis[ i ].p.coords[ j ] += delta_t * qp_dot[ int( 0.5 * len( qp_dot ) )  + i * self.Ndim + j ]
+
+		if i == 1:
+			c_dot_prev = self.basis_tmp[0].c_dot()
+			qp_dot_prev = self.basis_tmp[0].qp_dot()
+			self.basis_tmp.append( basis( 0.0, self.basis, 1.0, self.Ndim ) )
+
+			for i in range( self.size() ):
+				self.basis[ i ].D += 0.5 * delta_t * ( c_dot[ i ] + c_dot_prev[i] )
+				for j in range( self.Ndim ):
+					self.basis[ i ].q.coords[ j ] += 0.5 * delta_t * ( qp_dot[ i * self.Ndim + j ] + qp_dot_prev[ i * self.Ndim + j ] )
+					self.basis[ i ].p.coords[ j ] += 0.5 * delta_t * ( qp_dot[ int( 0.5 * len( qp_dot ) )  + i * self.Ndim + j ] + \
+											   qp_dot_prev[ int( 0.5 * len( qp_dot ) )  + i * self.Ndim + j ] )
+
+		if i >= 2:
+			c_dot1 = self.basis_tmp[0].c_dot()
+			qp_dot1 = self.basis_tmp[0].qp_dot()
+			c_dot2 = self.basis_tmp[1].c_dot()
+			qp_dot2 = self.basis_tmp[1].qp_dot()
+			self.basis_tmp[0] = self.basis_tmp[1]
+			self.basis_tmp[1] =  basis( 0.0, self.basis, 1.0, self.Ndim ) 
+
+			for i in range( self.size() ):
+				self.basis[ i ].D += delta_t * ( c_dot[ i ] + c_dot1[i] + 4 * c_dot2[i] ) / 3
+				for j in range( self.Ndim ):
+					self.basis[ i ].q.coords[ j ] += delta_t * ( qp_dot[ i * self.Ndim + j ] + \
+										     qp_dot1[ i * self.Ndim + j ] + \
+										     qp_dot2[ i * self.Ndim + j ] ) / 3
+					self.basis[ i ].p.coords[ j ] += delta_t * ( qp_dot[ int( 0.5 * len( qp_dot ) )  + i * self.Ndim + j ] + \
+										     qp_dot1[ int( 0.5 * len( qp_dot ) ) + i * self.Ndim + j ] + \
+										     qp_dot2[ int( 0.5 * len( qp_dot ) ) + i * self.Ndim + j ] )
+	
+
+
 
 	def norm( self ):
-		return np.dot( self.vec_c(), np.dot( self.smatrix(), self.vec_c() ) )
+		return np.dot( np.conj( self.vec_c() ), np.dot( self.smatrix(), self.vec_c() ) )
 
 	def get_states( self ):
 		x, v = svd( self.smatrix(), self.hmatrix() )

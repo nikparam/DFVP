@@ -5,6 +5,8 @@ from dyn_tools.vec import vec
 from dyn_tools.gwp import gwp
 from dyn_tools.basis import basis
 from eig_tools.eig_tools import sinvert
+import matplotlib.pyplot as plt
+
 
 x = gwp( 1, 0, 0, 1)
 y = gwp( 1, 10, 0, 1)
@@ -16,13 +18,21 @@ start = time()
 print( b )
 print( )
 
-b.create_start( )
-print()
-for _ in range(1000):
-	b.dynamics( 1e-10 )
+#b.create_start( )
+#print()
+
+
+N = []
+npts = 100
+for i in range( npts ):
+	b.dynamics( i, 0.001 )
+	N.append( b.norm() )
 
 print( b )
 print( b.norm() )
-print( )
+print()
+
+plt.plot( range( npts ), [ _.real for _ in N ], 'o' )
+plt.show()
 
 print( "CPU time = {0}".format( time() - start ) )

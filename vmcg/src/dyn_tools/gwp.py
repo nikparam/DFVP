@@ -128,6 +128,26 @@ class gwp( ):
 			v[i] *= 0.5 * ( rb.call(i) - lb.call(i) ) 
 		return vec( v )
 
+	def V1p( self, other, NPTS ):
+		'''
+		<g_i|x*V|g_j> calculated with Gauss Legendre quadratures
+		'''
+
+		x, w = 	np.polynomial.legendre.leggauss( NPTS )
+		lb = ( self.q - 5.0 / self.omega ).min( other.q - 5.0 / self.omega )
+		rb = ( self.q + 5.0 / self.omega ).max( other.q + 5.0 / self.omega )
+
+		shift = lambda x, a, b: 0.5 * ( b - a ) * x + 0.5 * ( a + b )
+
+		v = np.zeros( self.q.size(), dtype = complex )
+
+		for i in range( self.q.size() ):
+			for j in range( NPTS ):
+				r = shift( x[j], lb.call(i), rb.call(i) )
+				v[i] += w[j] * np.conj( self.psi( r, i ) ) * r *  potential( r ) * other.psi( r, i )
+			v[i] *= 0.5 * ( rb.call(i) - lb.call(i) ) 
+		return vec( v )
+
 	def Vf( self, other, NPTS ):
 		'''
 		<g_i|V|g_j> is calculated with Fortran90 subroutine
@@ -142,7 +162,7 @@ class gwp( ):
 	def H1( self, other ):
 
 		return ( self.xi.conj() + other.xi ) / \
-		       ( self.omega + other.omega ) * self.T( other ) + self.Vp( other, 50 )
+		       ( self.omega + other.omega ) *  self.T( other ) + self.V1p( other, 50 ) 
 
 	def __str__( self ):
 		'''
